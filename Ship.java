@@ -27,7 +27,7 @@ public class Ship
 	
 	/**
 	 * A copy constructor that makes a copy of a ship's info.
-	 * @param s - ship object to be copied.
+	 * @param s The ship object to be copied.
 	 */    
 	public Ship(Ship s)
 	{
@@ -57,7 +57,7 @@ public class Ship
 	
 	/**
 	* Getter method for ship name.
-	* @return this.name Ships name.
+	* @return this.name Ship's name.
 	*/
 	public String getName()
 	{
@@ -66,7 +66,7 @@ public class Ship
 	
 	/**
 	* Setter method for ship name.
-	* @param shipName The ships name.
+	* @param shipName The ship's name.
 	*/
 	public void setName(String shipName)
 	{
@@ -75,7 +75,7 @@ public class Ship
 
 	/**
 	* Getter method for ship length.
-	* @return this.length Ships length.
+	* @return this.length Ship's length.
 	*/
 	public int getLength()
 	{
@@ -84,7 +84,7 @@ public class Ship
 	
 	/**
 	* Setter method for ship length.
-	* @param shipLength The ships length.
+	* @param shipLength An integer for ship's length.
 	*/
 	public void setLength(int shipLength)
 	{
@@ -101,7 +101,7 @@ public class Ship
 	
 	/**
 	* Method gets current orientation (vertical or horizontal).
-	* @return verticalOrientation.
+	* @return verticalOrientation Returns true if the ship is vertically oriented.
 	*/
 	public boolean getVerticalOrientation()
 	{
@@ -109,8 +109,8 @@ public class Ship
 	}   
 	
 	/**
-	* Setter method for xPos.
-	* @param x X position.
+	* Setter method for the X position of a ship.
+	* @param x An integer for X position.
 	*/
 	public void setXPos(int x)
 	{
@@ -118,7 +118,7 @@ public class Ship
 	}
 	
 	/**
-	* Getter method for xPos.
+	* Getter method for a particular X position of a ship.
 	* @return xPos Returns X position.
 	*/
 	public int getXPos()
@@ -127,8 +127,8 @@ public class Ship
 	}
 	
 	/**
-	* Setter method for yPos.
-	* @param y Y position.
+	* Setter method for the Y position of a ship.
+	* @param y An integer for Y position.
 	*/
 	public void setYPos(int y)
 	{
@@ -136,8 +136,8 @@ public class Ship
 	}
 
 	/**
-	* Getter method for yPos.
-	* @return yPos Returns Y position.
+	* Getter method for the Y position of a ship.
+	* @return yPos Returns integer Y position.
 	*/
 	public int getYPos()
 	{
@@ -145,7 +145,7 @@ public class Ship
 	}
 
 	/**
-	* Getter method for xPositions.
+	* Getter method for the X positions of a ship.
 	* @return xPositions Returns X positions.
 	*/    
 	public int[] getXPositions()
@@ -164,7 +164,7 @@ public class Ship
 
 	/**
 	* Setter method for xPositions.
-	* @param x X position.
+	* @param x An integer for X position.
 	*/    
 	public void setXPositions(int x)
 	{
@@ -185,7 +185,7 @@ public class Ship
 
 	/**
 	* Setter method for yPositions.
-	* @param y Y position.
+	* @param y An integer for Y position.
 	*/        
 	public void setYPositions(int y)
 	{
@@ -206,7 +206,7 @@ public class Ship
 
 	/**
 	* Method checks if any of the X positions of the ship match the X position provided.
-	* @param x X position.
+	* @param x An integer for X position.
 	* @return boolean Returns true if the X position provided is occupied.
 	*/    
 	public boolean xChecker(int x)
@@ -221,7 +221,7 @@ public class Ship
 
 	/**
 	* Method checks if any of the Y positions of the ship match the Y position provided.
-	* @param y Y position.
+	* @param y An integer for Y position.
 	* @return boolean Returns true if the Y position provided is occupied.
 	*/    	
 	public boolean yChecker(int y)

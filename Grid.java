@@ -26,7 +26,8 @@ public class Grid
 		System.out.print(", Been hit: " + beenHit + "\n");
 	}
 	
-	/**The method returns the x coordinate of the grid
+	/**
+	 * The method returns the x coordinate of the grid
 	 * @return Returns integer x coordinate
 	 */
 	public int getXCoord()

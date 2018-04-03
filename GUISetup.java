@@ -20,11 +20,19 @@ public class GUISetup extends Application
 	public int i = 8;
 	public TextField playerNameInput;
 	
+	/**
+	* Main meethod that initiates the calling of other methods.
+	* @param args A standard string argument for a main method.
+	*/
 	public static void main(String [] args)
 	{		
 		launch(args);
 	}	
 	
+	/**
+	 * The method creates buttons, labels, and a scene for the start screen, including the name of the player.
+	 * @param primaryStage An Stage object to be populated with buttons and labels.
+	 */ 
 	@Override
 	public void start(Stage primaryStage)
 	{
@@ -67,10 +75,7 @@ public class GUISetup extends Application
 		gameModeHBox.getChildren().add(1, gameMode);
 		
 		gameModeHBox.setPadding(new Insets(5));
-		
-		
-		
-
+	
 		
 		Label boardSize = new Label("Board Size: ");
 		boardSize.setPadding(new Insets(5));
@@ -147,33 +152,30 @@ public class GUISetup extends Application
 			}
 			else if(game.equals("Two player"))
 			{
-				
 				primaryStage.close();
 				addPlayer(new Stage());
-//				TwoPlayerGUI gui = new TwoPlayerGUI();
-//				try {
-//					gui.start(new Stage());
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
 			}
 			
 		});
-		
-		
-		
-		
 		
 		Scene scene = new Scene(vbox, 500, 150);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 	
+	/**
+	* Method converts i into a string instead of an integer.
+	* @param i An integer for the interval location of the board.
+	*/
 	public String toString(int i)
 	{
 		return i + " ";
 	}
-	
+
+	/**
+	* Method creates buttons, labels, and a scene for a second player.
+	* @param primaryStage An Stage object to be populated with buttons and labels.
+	*/
 	public void addPlayer(Stage primaryStage)
 	{
 		primaryStage.setTitle("Player 2");
@@ -220,9 +222,12 @@ public class GUISetup extends Application
 			primaryStage.show();
 	}
 
-	public void run() {
+	/**
+	* Method implements the Runnable interface.
+	*/
+	public void run() 
+	{
 		launch();
-		
 	}
 }
 

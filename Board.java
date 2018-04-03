@@ -12,6 +12,11 @@ public class Board
 	private int boardSize;
 	Grid[][] grid;
 
+
+	/**
+	* Method sets the board to have dimensions x by x.
+	* @param x An integer for the dimension of the board.
+	*/
 	public void chooseBoardSize(int x)
 	{
 		boardSize = x;
@@ -107,7 +112,7 @@ public class Board
 	}
 	
 	/**
-	 * The method creates an arrays that represents the grid
+	 * The method creates an array that represents the grid
 	 */ 
 	public void boardPopulate()		//Board population
 	{
@@ -129,14 +134,12 @@ public class Board
 		}
 	}
 	/**
-	 * The method returns the size of the board
-	 */ 
+	* Getter method for boardSize.
+	* @return boardSize Returns board size.
+	*/   
 	public int getBoardSize()
 	{
 		return this.boardSize;
 	}
-	/**
-	 * The method returns the grid
-	 */
 
 }
