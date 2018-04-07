@@ -30,6 +30,7 @@ public class TwoPlayerGUI extends Application
 	private int variableCellSize;
 	
 	//Variables
+	private boolean gameOver = false;
 	private boolean player1Turn = true;
 	private boolean playerShipPlacementNotOver = true;
 	private boolean shotTaken = false;
@@ -75,6 +76,16 @@ public class TwoPlayerGUI extends Application
 	Button p2b5;
 	Button p2b6;
 	
+	//Win scene
+	Group root3;
+	Scene scene3;
+	Canvas canvas3;
+	GraphicsContext gc3;
+	
+	VBox vBox3;
+	
+	Button quit;
+	
 	public static void main(String [] args)
 	{
 		launch(args);
@@ -94,21 +105,22 @@ public class TwoPlayerGUI extends Application
 		twoPlayer.player1.setBoardLength(boardUnits-1);
 		twoPlayer.player2.setBoardLength(boardUnits-1);
 		
-		
 		twoPlayer.twoPlayerSetup(3);
+		
 		//Creates cell size
 		variableCellSize = (int)(boardSize/boardUnits);
 		
 		primaryStage.setTitle("Battleship");
 		createScenes(primaryStage);
 		
-		playGame(primaryStage);
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	}
 	
 	//Creates the scenes
 	public void createScenes(Stage primaryStage) 
 	{
-		//Scene 1
+		//Player 1 Scene
 		root = new Group();
 		scene = new Scene(root);
 		canvas = new Canvas(wWidth, wHeight);
@@ -123,6 +135,8 @@ public class TwoPlayerGUI extends Application
 		root.getChildren().add(stats);
 		
 		shipsSunkLabel.setLayoutX(boardSize);
+		shipsSunkLabel.setLayoutY((int)(margin/4));
+
 
 		p1b1 = new Button("Done");
 		p1b2 = new Button("Battleship");
@@ -173,7 +187,7 @@ public class TwoPlayerGUI extends Application
 		root.getChildren().add(p1b6);
 				
 		//=====================================
-		//Scene 2
+		//Player 2 Scene
 		root2 = new Group();
 		scene2 = new Scene(root2);
 		canvas2 = new Canvas(wWidth, wHeight);
@@ -188,6 +202,8 @@ public class TwoPlayerGUI extends Application
 		root2.getChildren().add(stats2);
 		
 		shipsSunkLabel2.setLayoutX(boardSize);
+		shipsSunkLabel2.setLayoutY((int)(margin/4));
+
 
 		p2b1 = new Button("Done");
 		p2b2 = new Button("Battleship");
@@ -238,7 +254,7 @@ public class TwoPlayerGUI extends Application
 		root2.getChildren().add(p2b6);
 		
 		//=======================================
-		//Scene 1 event handles
+		//Player 1 event handles
 		
 		//Handle done button
 		p1b1.setOnAction(e -> handleDoneButton(primaryStage));
@@ -256,7 +272,7 @@ public class TwoPlayerGUI extends Application
 		scene.setOnMouseClicked(e -> handleMouseClick(twoPlayer.player1, e, gc, root, stats, p1b1, primaryStage));
 		
 		//========================================
-		//Scene 2 event handles
+		//Player 2 event handles
 		
 		//Handle done button
 		p2b1.setOnAction(e -> handleDoneButton(primaryStage));
@@ -273,6 +289,34 @@ public class TwoPlayerGUI extends Application
 		//Mouse event handler
 		scene2.setOnMouseClicked(e -> handleMouseClick(twoPlayer.player2, e, gc2, root2, stats2, p2b1, primaryStage));
 		
+		//=============================================
+		//Win Screen scene
+		root3 = new Group();
+		scene3 = new Scene(root3);
+		canvas3 = new Canvas(wWidth, wHeight);
+		gc3 = canvas3.getGraphicsContext2D();
+		canvas3.setMouseTransparent(true);
+		root3.getChildren().add(canvas3);
+
+		
+		vBox3 = new VBox();
+		vBox3.setPrefWidth(75);
+
+		
+		gc3.setStroke(Color.BLACK);
+		
+		//Button
+		quit = new Button("Quit");
+		
+		quit.setMinWidth(vBox3.getPrefWidth());
+		quit.setLayoutX((int)(wWidth/2) - (int)(vBox.getPrefWidth()/2));
+		quit.setLayoutY(wHeight - 50);
+		
+		root3.getChildren().add(quit);
+
+		//=============================================
+		//Win Screen event handles
+		quit.setOnAction(e -> System.exit(0));
 	}
 	
 	//Handle ship buttons
@@ -309,23 +353,41 @@ public class TwoPlayerGUI extends Application
 		//Reset shotTaken
 		shotTaken = false;
 		
+		if(player1ShipsSunk == 4)
+		{
+			System.out.println(p1Name + " won!");
+			setWinScene(primaryStage, p1Name);
+			gameOver = true;
+		}
+		if(player2ShipsSunk == 4)
+		{
+			System.out.println(p2Name + " won!");
+			setWinScene(primaryStage, p2Name);
+			gameOver = true;
+		}
+		
 		//Both players finished placing ships, stops placing ships mouse clicking
 		if(numTurns == 2) 
 		{
 			root.getChildren().remove(stats);
 			root2.getChildren().remove(stats2);
+			
 			playerShipPlacementNotOver = false;
+			
+			root.getChildren().add(shipsSunkLabel);
+			root2.getChildren().add(shipsSunkLabel2);
+
 		}
 		
 		//Swaps player's screens
-		if(player1Turn)
+		if(player1Turn && !gameOver)
 		{
 			root.getChildren().remove(p1b1);
 			
 			primaryStage.setScene(scene2); 
 			primaryStage.show();
 		}
-		else 
+		else if(!player1Turn && !gameOver)
 		{
 			root2.getChildren().remove(p2b1);
 			
@@ -395,6 +457,7 @@ public class TwoPlayerGUI extends Application
 					}
 					
 					player.shipPlacement(player.current);
+					twoPlayer.boardLinking();
 					
 					if(player.getName() == p1Name)
 					{
@@ -474,58 +537,57 @@ public class TwoPlayerGUI extends Application
 				y = (int)((event.getY()-margin-(boardSize-variableCellSize*boardUnits))/variableCellSize);
 			}
 			
-			System.out.println("x: "+x +" y: " + y);
+			System.out.println("x: "+ x + " y: " + y);
 			
 			int xl = wWidth - (boardUnits-x)*variableCellSize;
 			int yl = (y*variableCellSize)+margin+(boardSize-variableCellSize*boardUnits);
 			
 			int w = variableCellSize;
 			
-			
-			if((x>=0 && y>=0 ) && (x<=boardUnits-1 && y<=boardUnits-1) && player.enemyBoard.grid[x][y].getBeenHit())
+			if((x>=0 && y>=0 ) && (x<=boardUnits-1 && y<=boardUnits-1))
 			{
-				System.out.println("Already shot that spot.");
-			}
-			if ((x>=0 && y>=0 ) && (x<=boardUnits-1 && y<=boardUnits-1) && !shotTaken && !player.enemyBoard.grid[x][y].getBeenHit())
-			{
-				player.enemyBoard.grid[x][y].setBeenHit(true);
-				if (player.enemyBoard.grid[x][y].getHasShip())// has ship
+				if(player.enemyBoard.grid[x][y].getBeenHit())
 				{
-					System.out.println("hit ship");
-					gc.setFill(Color.RED);
-					gc.fillRect(xl,yl,w,w);
+					System.out.println("Already shot that spot.");
+				}
+				else if (!shotTaken)
+				{
+					player.enemyBoard.grid[x][y].setBeenHit(true);
+					if (player.enemyBoard.grid[x][y].getHasShip())// has ship
+					{
+						gc.setFill(Color.RED);
+						gc.fillRect(xl,yl,w,w);
+						
+						//If player is player1
+						if(player == twoPlayer.player1)
+						{
+							if(twoPlayer.player2.shipChecker(x, y))
+							{
+								player1ShipsSunk++;
+								shipsSunkLabel.setText("# of ships sunk = "+ player1ShipsSunk);
+							}
+						}
+						//If player is player2
+						else
+						{
+							if(twoPlayer.player1.shipChecker(x, y))
+							{
+								player2ShipsSunk++;
+								shipsSunkLabel2.setText("# of ships sunk = "+ player2ShipsSunk);
+							}
+						}
+					}
+					else //Hit empty space
+					{
+						System.out.println("no ship found");
+						gc.setFill(Color.BLUE);
+						gc.fillRect(xl,yl,w,w);
+					}
 					
-					//If player is player1
-					if(player == twoPlayer.player1)
-					{
-						if(twoPlayer.player2.shipChecker(x, y))
-						{
-							player1ShipsSunk++;
-							shipsSunkLabel.setText("Number of computer ships sunk = "+ player1ShipsSunk);
-						}
-						System.out.println("ship is sunk");
-					}
-					//If player is player2
-					else
-					{
-						if(twoPlayer.player1.shipChecker(x, y))
-						{
-							player2ShipsSunk++;
-							shipsSunkLabel.setText("Number of computer ships sunk = "+ player2ShipsSunk);
-						}
-						System.out.println("ship is sunk");
-					}
+					shotTaken = true;
+					root.getChildren().add(doneButton);
+					twoPlayer.boardLinking(); 
 				}
-				else //Hit empty space
-				{
-					System.out.println("no ship found");
-					gc.setFill(Color.BLUE);
-					gc.fillRect(xl,yl,w,w);
-				}
-				
-				shotTaken = true;
-				root.getChildren().add(doneButton);
-				twoPlayer.boardLinking(); 
 			}
 	
 			primaryStage.show();
@@ -578,20 +640,13 @@ public class TwoPlayerGUI extends Application
 		}
 	}
 	
-	//Runs through player turns
-	public void playGame(Stage primaryStage)
+	//Sets Win scene
+	public void setWinScene(Stage primaryStage, String name)
 	{
-		if(player1Turn)
-		{		
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		}
-		else
-		{		
-			primaryStage.setScene(scene2);
-			primaryStage.show();
-		}
-		
+		gc3.strokeText(name, (int)(wWidth/2 - 20), (int)(wHeight/2));
+
+		primaryStage.setScene(scene3); 
+		primaryStage.show();
 	}
 	
 	//Runs GUI without use of an argument when called

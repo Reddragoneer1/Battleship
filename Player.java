@@ -429,6 +429,7 @@ public class Player
 		{
 			if(shipsPlaced.get(i).xChecker(x) && shipsPlaced.get(i).yChecker(y))
 			{
+				System.out.println("Hit " + shipsPlaced.get(i).getName() + ".");
 				shipsPlaced.get(i).setLife(shipsPlaced.get(i).getLife()-1);
 				if(shipsPlaced.get(i).getLife() <= 0)
 				{

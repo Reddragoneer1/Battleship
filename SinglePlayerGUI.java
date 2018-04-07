@@ -8,7 +8,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.*;
 import javafx.scene.paint.*;
 import javafx.scene.text.Text;
@@ -34,11 +33,10 @@ public class SinglePlayerGUI extends Application
 	//Variables
 	private boolean playerShipPlacementNotOver=true;
 	private boolean shotTaken = false;
-	private boolean playerFiring = false;
-	private boolean gameOver = false;
+	private boolean playerTurn = false;
 	private int computerShipsSunk = 0;
 	private int playerShipsSunk = 0;
-	private String playerName = singlePlayer.player.getName();
+	private int numTurns = 0;
 	
 	//JavaFX Init GUI Fundamentals
 	Group root; 
@@ -47,10 +45,9 @@ public class SinglePlayerGUI extends Application
 	GraphicsContext gc;
 	
 	VBox vBox;
-	Label stats = new Label();
-	Label shipsSunkLabel = new Label();
-	Label shipsSunkLabel2 = new Label();
-	Label playerNameLabel = new Label(playerName);
+	Label stats;
+	Label shipsSunkLabel;
+	Label shipsSunkLabel2;
 	
 	//Creates Buttons
 	Button p1b1;
@@ -59,6 +56,16 @@ public class SinglePlayerGUI extends Application
 	Button p1b4;
 	Button p1b5;
 	Button p1b6;
+	
+	//Win scene
+	Group root2;
+	Scene scene2;
+	Canvas canvas2;
+	GraphicsContext gc2;
+		
+	VBox vBox2;
+		
+	Button quit;
 	
 	//Player Name
 	String p1Name;
@@ -86,8 +93,8 @@ public class SinglePlayerGUI extends Application
 		
 		primaryStage.setTitle("Battleship");
 		createScene(primaryStage);
+		
 		primaryStage.setScene(scene);
-
 		primaryStage.show();
 	}
 	
@@ -102,12 +109,17 @@ public class SinglePlayerGUI extends Application
 						
 		vBox = new VBox();
 		stats = new Label();
-		shipsSunkLabel = new Label(); //Not added yet
-				
+		shipsSunkLabel = new Label();
+		shipsSunkLabel2 = new Label();
+		
+		
 		stats.setLayoutX(boardSize);
 		root.getChildren().add(stats);
 				
-		shipsSunkLabel.setLayoutX(boardSize);
+		shipsSunkLabel.setLayoutY((int)(margin/2));
+		shipsSunkLabel2.setLayoutX(boardSize + margin);
+		shipsSunkLabel2.setLayoutY((int)(margin/2));
+
 
 		p1b1 = new Button("Done");
 		p1b2 = new Button("Battleship");
@@ -160,7 +172,7 @@ public class SinglePlayerGUI extends Application
 		//Scene 1 event handles
 		
 		//Handle done button
-		p1b1.setOnAction(e -> handleDoneButton());
+		p1b1.setOnAction(e -> handleDoneButton(primaryStage));
 								
 		//Handle Ship Buttons
 		p1b2.setOnAction(e -> handleShipButton(singlePlayer.player.battleship, singlePlayer.player));
@@ -174,17 +186,28 @@ public class SinglePlayerGUI extends Application
 		//Mouse event handler
 		scene.setOnMouseClicked(e -> handleMouseClick(singlePlayer.player, e, primaryStage));
 		
-	}
-	
-	
-	public void winnerIsDetermined(Stage primaryStage)
-	{
-		if (gameOver == true)
-		{
-			Scanner input = new Scanner(System.in);
-			String line = input.nextLine();
-			primaryStage.close();
-		}
+		//==========================================
+		//Win Screen scene
+		root2 = new Group();
+		scene2 = new Scene(root2);
+		canvas2 = new Canvas(wWidth, wHeight);
+		gc2 = canvas2.getGraphicsContext2D();
+		canvas2.setMouseTransparent(true);
+		root2.getChildren().add(canvas2);
+
+		vBox2 = new VBox();
+		vBox2.setPrefWidth(75);
+		
+		gc2.setStroke(Color.BLACK);
+				
+		//Button
+		quit = new Button("Quit");
+				
+		quit.setMinWidth(vBox2.getPrefWidth());
+		quit.setLayoutX((int)(wWidth/2) - (int)(vBox.getPrefWidth()/2));
+		quit.setLayoutY(wHeight - 50);
+				
+		root2.getChildren().add(quit);
 	}
 	
 	public void handleShipButton(Ship ship, Player player)
@@ -212,20 +235,41 @@ public class SinglePlayerGUI extends Application
 	}
 	
 	//Handle done button
-	public void handleDoneButton()
+	public void handleDoneButton(Stage primaryStage)
 	{	
-		root.getChildren().remove(p1b6);
+		numTurns++;
+		
+		if(numTurns == 1)//Only needs to be executed once
+		{
+			singlePlayer.shipPlacer(singlePlayer.computer.battleship);
+			singlePlayer.shipPlacer(singlePlayer.computer.submarine);
+			singlePlayer.shipPlacer(singlePlayer.computer.destroyer);
+			singlePlayer.shipPlacer(singlePlayer.computer.patrolBoat);
+			root.getChildren().remove(stats);
+			playerShipPlacementNotOver = false;
+			
+			root.getChildren().add(shipsSunkLabel);
+			root.getChildren().add(shipsSunkLabel2);
+		}
+		
 		root.getChildren().remove(p1b1);
-		root.getChildren().remove(stats);
+
+		shotTaken = false;
 		
-		singlePlayer.shipPlacer(singlePlayer.computer.battleship);
-		singlePlayer.shipPlacer(singlePlayer.computer.submarine);
-		singlePlayer.shipPlacer(singlePlayer.computer.destroyer);
-		singlePlayer.shipPlacer(singlePlayer.computer.patrolBoat);
+		//Check for winner
+		if(playerShipsSunk == 4)
+		{
+			System.out.println(p1Name + " won!");
+			setWinScene(primaryStage, p1Name);
+		}
+		if(computerShipsSunk == 4)
+		{
+			System.out.println(p2Name + " won!");
+			setWinScene(primaryStage, p2Name);
+		}
 		
+		playerTurn = !playerTurn;
 		singlePlayer.boardLinking();
-		
-		playerShipPlacementNotOver = false;
 	}
 	
 	//Handle mouse clicks
@@ -283,6 +327,8 @@ public class SinglePlayerGUI extends Application
 					}
 					
 					player.shipPlacement(player.current);
+					singlePlayer.boardLinking();
+					
 					singlePlayer.player.setXPos(0);
 					singlePlayer.player.setYPos(0);
 					
@@ -319,92 +365,91 @@ public class SinglePlayerGUI extends Application
 		//No longer placing ships, now attacking phase
 		else
 		{
-			int x;
-			int y;
-			
-			x = boardUnits-1 - (int)((wWidth - event.getX())/variableCellSize ); //boardUnits-1 to convert to index in array
-			if(event.getY() <= margin + (boardSize-variableCellSize*boardUnits))//If click is above board
+			if(playerTurn)
 			{
-				y = -1; //Just an invalid position so no action taken
-			}
-			else 
-			{
-				y = (int)((event.getY()-margin-(boardSize-variableCellSize*boardUnits))/variableCellSize);
-			}
+				int x;
+				int y;
 			
-			System.out.println("x: "+ x + " y: " + y);
-			
-			int xl = wWidth - (boardUnits-x)*variableCellSize;
-			int yl = (y*variableCellSize)+margin+(boardSize-variableCellSize*boardUnits);
-			
-			int w = variableCellSize;
-			
-			if((x>=0 && y>=0 ) && (x<=boardUnits-1 && y<=boardUnits-1) && player.enemyBoard.grid[x][y].getBeenHit())
-			{
-				System.out.println("Already shot that spot.");
-			}
-			if ((x>=0 && y>=0) && (x<=boardUnits-1 && y<=boardUnits-1) && !shotTaken && !player.enemyBoard.grid[x][y].getBeenHit())
-			{
-				player.enemyBoard.grid[x][y].setBeenHit(true);
-				if (singlePlayer.player.enemyBoard.grid[x][y].getHasShip())// check if grid starts at 1 or 0
+				x = boardUnits-1 - (int)((wWidth - event.getX())/variableCellSize ); //boardUnits-1 to convert to index in array
+				if(event.getY() <= margin + (boardSize-variableCellSize*boardUnits))//If click is above board
 				{
-					System.out.println("hit ship");
-					gc.setFill(Color.RED);
-					gc.fillRect(xl,yl,w,w);
+					y = -1; //Just an invalid position so no action taken
+				}
+				else 
+				{
+					y = (int)((event.getY()-margin-(boardSize-variableCellSize*boardUnits))/variableCellSize);
+				}
+			
+				System.out.println("x: "+ x + " y: " + y);
+			
+				int xl = wWidth - (boardUnits-x)*variableCellSize;
+				int yl = (y*variableCellSize)+margin+(boardSize-variableCellSize*boardUnits);
+			
+				int w = variableCellSize;
+			
+				if((x>=0 && y>=0 ) && (x<=boardUnits-1 && y<=boardUnits-1))
+				{
+					if(player.enemyBoard.grid[x][y].getBeenHit())
+					{
+						System.out.println("Already shot that spot.");
+					}
+					else if (!shotTaken)
+					{
+						player.enemyBoard.grid[x][y].setBeenHit(true);
+						if (singlePlayer.player.enemyBoard.grid[x][y].getHasShip())// check if grid starts at 1 or 0
+						{
+							gc.setFill(Color.RED);
+							gc.fillRect(xl,yl,w,w);
 						
-					if(singlePlayer.computer.shipChecker(x, y))
+							if(singlePlayer.computer.shipChecker(x, y))
+							{
+								playerShipsSunk++;
+								shipsSunkLabel.setText("# of ships sunk by " + p1Name + " = "+ playerShipsSunk);
+							}
+						}
+						else //Hit empty spot
+						{
+							gc.setFill(Color.BLUE);
+							gc.fillRect(xl,yl,w,w);
+						}
+						
+						shotTaken = true;
+						root.getChildren().add(p1b1);
+						singlePlayer.boardLinking(); 
+					}		
+				}
+			
+				primaryStage.show();
+			
+			}
+			else //AI shooting
+			{
+				singlePlayer.computer.shipFire();
+				singlePlayer.computer.enemyBoard.grid[singlePlayer.computer.getXPos()][singlePlayer.computer.getYPos()].setBeenHit(true);
+			
+				int xc = singlePlayer.computer.getXPos()*variableCellSize;
+				int yc = singlePlayer.computer.getYPos()*variableCellSize+margin+(boardSize-variableCellSize*boardUnits);
+			
+				if (singlePlayer.computer.enemyBoard.grid[singlePlayer.computer.getXPos()][singlePlayer.computer.getYPos()].getHasShip())
+				{
+					gc.setFill(Color.RED);
+					gc.fillRect(xc,yc,variableCellSize,variableCellSize);
+					if(singlePlayer.player.shipChecker(singlePlayer.computer.getXPos(), singlePlayer.computer.getYPos()))
 					{
 						computerShipsSunk++;	
-						shipsSunkLabel.setText("Number of computer ships sunk = " + computerShipsSunk);
-						if (playerShipsSunk == 4 || computerShipsSunk == 4)
-						{
-							gameOver = true;
-							System.out.println("GAME OVER: PLAYER WINS");
-						}
-						winnerIsDetermined(primaryStage);
+						shipsSunkLabel2.setText("# of ships sunk by Computer = "+ computerShipsSunk);
 					}
-						
 				}
-				else //Hit empty space
+				else//Hit empty spot
 				{
-					gc.setFill(Color.BLUE);
-					gc.fillRect(xl,yl,w,w);
+					gc.setFill(Color.GRAY);
+					gc.fillRect(xc,yc,variableCellSize,variableCellSize);				
 				}
 				
-				shotTaken = true;
-				root.getChildren().add(p1b1);
-				singlePlayer.boardLinking(); 
-			}
-			
-			primaryStage.show();
-			
-			//AI shooting
-			singlePlayer.computer.shipFire();
-			singlePlayer.computer.enemyBoard.grid[singlePlayer.computer.getXPos()][singlePlayer.computer.getYPos()].setBeenHit(true);
-			
-			int xc = singlePlayer.computer.getXPos()*variableCellSize;
-			int yc = singlePlayer.computer.getYPos()*variableCellSize+margin+(boardSize-variableCellSize*boardUnits);
-			
-			if (singlePlayer.computer.enemyBoard.grid[singlePlayer.computer.getXPos()][singlePlayer.computer.getYPos()].getHasShip())
-			{
-				gc.setFill(Color.RED);
-				gc.fillRect(xc,yc,variableCellSize,variableCellSize);
-				if(singlePlayer.player.shipChecker(singlePlayer.computer.getXPos(), singlePlayer.computer.getYPos()))
-				{
-						playerShipsSunk++;	
-						shipsSunkLabel2.setText("Number of player ships sunk = "+ playerShipsSunk);
-						if (playerShipsSunk == 4 || computerShipsSunk == 4)
-						{
-							gameOver = true;
-							System.out.println("GAME OVER: CPU WINS");
-						}
-						winnerIsDetermined(primaryStage);
-				}
-			}
-			else
-			{
-				gc.setFill(Color.GRAY);
-				gc.fillRect(xc,yc,variableCellSize,variableCellSize);				
+				checkForWinner(primaryStage);
+				playerTurn = !playerTurn;
+				primaryStage.show();
+
 			}
 		}					
 	}
@@ -454,4 +499,30 @@ public class SinglePlayerGUI extends Application
 			}	
 		}
 	}
+	
+	//Sets Win scene
+	public void setWinScene(Stage primaryStage, String name)
+	{
+		gc2.strokeText(name, (int)(wWidth/2 - 20), (int)(wHeight/2));
+
+		primaryStage.setScene(scene2); 
+		primaryStage.show();
+	}
+	
+	//Check for winner
+	public void checkForWinner(Stage primaryStage)
+	{
+		if(playerShipsSunk == 4)
+		{
+			System.out.println(p1Name + " won!");
+			setWinScene(primaryStage, p1Name);
+		}
+		if(computerShipsSunk == 4)
+		{
+			System.out.println(p2Name + " won!");
+			setWinScene(primaryStage, p2Name);
+		}
+		
+	}
+	
 }

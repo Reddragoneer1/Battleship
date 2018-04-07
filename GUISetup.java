@@ -158,10 +158,6 @@ public class GUISetup extends Application
 			
 		});
 		
-		
-		
-		
-		
 		Scene scene = new Scene(vbox, 500, 150);
 		primaryStage.setScene(scene);
 		primaryStage.show();

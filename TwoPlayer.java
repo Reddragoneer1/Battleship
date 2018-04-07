@@ -383,6 +383,7 @@ public class TwoPlayer
 		}while(player2ShipPlacementNotOver);//while player not done turn
 
 	}
+	
 	public void choosingBoardSize(int x)
 	{
 		player1.playerBoard.chooseBoardSize(x);
@@ -399,9 +400,9 @@ public class TwoPlayer
 	 */
 	public void boardLinking()
 	{
-		for(int i = 0; i < 8; i++)//iterates through all spaces in board and links the two players boards
+		for(int i = 0; i < board; i++)//iterates through all spaces in board and links the two players boards
 		{
-			for(int j = 0; j < 8; j++)
+			for(int j = 0; j < board; j++)
 			{
 				player1.enemyBoard.grid[i][j].setHasShip(player2.playerBoard.grid[i][j].getHasShip());
 				player1.enemyBoard.grid[i][j].setShipName(player2.playerBoard.grid[i][j].getShipName());
