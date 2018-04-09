@@ -6,15 +6,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.*;
 import javafx.scene.paint.*;
-import javafx.scene.text.Text;
-import javax.swing.JOptionPane;
 
-import java.util.Scanner;
 
+/**
+ * 
+ * Class creates and handles all events for a single player
+ * game of battleship versus an AI, and continues until 
+ * either the player wins, or the AI.
+ * 
+ * @author Sam, David
+ *
+ */
 public class SinglePlayerGUI extends Application
 {
 	SinglePlayer singlePlayer = new SinglePlayer();
@@ -71,11 +75,21 @@ public class SinglePlayerGUI extends Application
 	String p1Name;
 	String p2Name = "Computer";
 	
+	/**
+	 * Launches javaFX
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args)
 	{
 		launch(args); 
 	}
 	
+	/**
+	 * Sets main framework of what is to be used for the GUI.
+	 * Sets up the singlePlayer game in the background so the GUI
+	 * can use it as a reference.
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception 
 	{
@@ -101,6 +115,12 @@ public class SinglePlayerGUI extends Application
 		primaryStage.show();
 	}
 	
+	/**
+	 * Sets both the player's scene and computer's scene, and in addition
+	 * the win scene.
+	 * 
+	 * @param primaryStage
+	 */
 	public void createScene(Stage primaryStage)
 	{
 		//Scene 1
@@ -213,6 +233,12 @@ public class SinglePlayerGUI extends Application
 		root2.getChildren().add(quit);
 	}
 	
+	/**
+	 * Handles any ship button event that is thrown by the player.
+	 * 
+	 * @param ship 
+	 * @param player
+	 */
 	public void handleShipButton(Ship ship, Player player)
 	{
 		System.out.println("Place " + ship.getName() + "\n");
@@ -221,7 +247,11 @@ public class SinglePlayerGUI extends Application
 		stats.setText(player.getStats());
 	}
 	
-	//Handle rotate button
+	/**
+	 * Handles rotating current ship for the player.
+	 * 
+	 * @param player
+	 */	
 	public void handleRotateButton(Player player)
 	{
 		if(player.current.getName() == null)
@@ -236,8 +266,16 @@ public class SinglePlayerGUI extends Application
 			stats.setText(player.getStats());
 		}
 	}
-	
-	//Handle done button
+
+	/**
+	 * Checks for a winner after each turn, and switches scene to 
+	 * respective winner's win screen.
+	 * 
+	 * Switches game from ship placement phase to ship attaching phase
+	 * on the first turn (ie. after the player has placed all ships).
+	 * 
+	 * @param primaryStage
+	 */
 	public void handleDoneButton(Stage primaryStage)
 	{	
 		numTurns++;
@@ -275,7 +313,23 @@ public class SinglePlayerGUI extends Application
 		singlePlayer.boardLinking();
 	}
 	
-	//Handle mouse clicks
+	/**
+	 * Handles clicks for placing ships, and ensures that desired
+	 * placement is valid. After a valid ship placement is completed,
+	 * ship is updated on the screen, and ships respective button is
+	 * removed to ensure only one of each ship is placed.
+	 * 
+	 * Handles clicks for shooting at the enemy board, and ensures
+	 * that shots are valid (ie. in bounds, not the same spot, and
+	 * only one shot is taken). After valid shot is completed, shot
+	 * is updated on the screen, and the player's respective done
+	 * button appears to switch turns.
+	 * 
+	 * 
+	 * @param player Player who made the click
+	 * @param event Event to be handled
+	 * @param primaryStage Primary Stage of the game
+	 */
 	public void handleMouseClick(Player player, MouseEvent event, Stage primaryStage)
 	{
 		//If still placing ships
@@ -457,7 +511,11 @@ public class SinglePlayerGUI extends Application
 		}					
 	}
 	
-	//Draws the main frame of the screen
+	/**
+	 * Draws the board for the player's scene, and displays their
+	 * name above their respective board.
+	 * 
+	 */
 	public void drawBoard()
 	{
 		/*
@@ -503,7 +561,13 @@ public class SinglePlayerGUI extends Application
 		}
 	}
 	
-	//Sets Win scene
+	/**
+	 * Sets the text box to display the winning player's name
+	 * and updates the scene.
+	 * 
+	 * @param primaryStage
+	 * @param name Winning player's Name
+	 */
 	public void setWinScene(Stage primaryStage, String name)
 	{
 		gc2.strokeText(name, (int)(wWidth/2 - 20), (int)(wHeight/2));
@@ -512,7 +576,11 @@ public class SinglePlayerGUI extends Application
 		primaryStage.show();
 	}
 	
-	//Check for winner
+	/**
+	 * Checks for a winner.
+	 * 
+	 * @param primaryStage
+	 */
 	public void checkForWinner(Stage primaryStage)
 	{
 		if(playerShipsSunk == 4)

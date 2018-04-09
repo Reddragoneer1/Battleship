@@ -6,13 +6,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.*;
 import javafx.scene.paint.*;
-import javafx.scene.text.Text;
 
+/**
+ * 
+ * Class creates and handles all events for a two player
+ * game of battleship for each player separately, and 
+ * continues until a player wins.
+ * 
+ * @author Sam, David
+ *
+ */
 public class TwoPlayerGUI extends Application
 {
 	//TwoPlayer class
@@ -86,12 +92,21 @@ public class TwoPlayerGUI extends Application
 	
 	Button quit;
 	
+	/**
+	 * Launches javaFX
+	 * 
+	 * @param args
+	 */
 	public static void main(String [] args)
 	{
 		launch(args);
 	}
 	
-	//Main for GUI
+	/**
+	 * Sets main framework of what is to be used for the GUI.
+	 * Sets up the twoPlayer game in the background so the GUI
+	 * can use it as a reference.
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{	
@@ -117,7 +132,12 @@ public class TwoPlayerGUI extends Application
 		primaryStage.show();
 	}
 	
-	//Creates the scenes
+	/**
+	 * Sets each of the players scenes, and in addition
+	 * the win scene also.
+	 * 
+	 * @param primaryStage
+	 */
 	public void createScenes(Stage primaryStage) 
 	{
 		//Player 1 Scene
@@ -319,7 +339,13 @@ public class TwoPlayerGUI extends Application
 		quit.setOnAction(e -> System.exit(0));
 	}
 	
-	//Handle ship buttons
+	/**
+	 * Handles any ship button event that is thrown by either player.
+	 * 
+	 * @param ship 
+	 * @param player
+	 * @param stats Text that displays ship name, orientation, and length.
+	 */
 	public void handleShipButton(Ship ship, Player player, Label stats)
 	{
 		System.out.println("Place " + ship.getName() + "\n");
@@ -328,7 +354,12 @@ public class TwoPlayerGUI extends Application
 		stats.setText(player.getStats());
 	}
 	
-	//Handle rotate button
+	/**
+	 * Handles rotating current ship by either player.
+	 * 
+	 * @param player
+	 * @param stats
+	 */
 	public void handleRotateButton(Player player, Label stats)
 	{
 		if(player.current.getName() == null)
@@ -344,7 +375,17 @@ public class TwoPlayerGUI extends Application
 		}
 	}
 	
-	//Handle done button
+	/**
+	 * Checks for a winner after each turn, and switches scene to 
+	 * respective winner's win screen.
+	 * 
+	 * Switches game from ship placement phase to ship attaching phase
+	 * on the second turn (ie. after each player has placed all ships).
+	 * 
+	 * Switches scene to that of the other player's.
+	 * 
+	 * @param primaryStage
+	 */
 	public void handleDoneButton(Stage primaryStage)
 	{
 		//Counts turns
@@ -399,7 +440,27 @@ public class TwoPlayerGUI extends Application
 		player1Turn = !player1Turn;
 	}
 	
-	//Handle mouse clicks
+	/**
+	 * Handles clicks for placing ships, and ensures that desired
+	 * placement is valid. After a valid ship placement is completed,
+	 * ship is updated on the screen, and ships respective button is
+	 * removed to ensure only one of each ship is placed.
+	 * 
+	 * Handles clicks for shooting at the enemy board, and ensures
+	 * that shots are valid (ie. in bounds, not the same spot, and
+	 * only one shot is taken). After valid shot is completed, shot
+	 * is updated on the screen, and the player's respective done
+	 * button appears to switch turns.
+	 * 
+	 * 
+	 * @param player Player who made the click
+	 * @param event Event to be handled
+	 * @param gc PLayer's specific graphicsContext
+	 * @param root Player's specific root
+	 * @param stats Descriptive information
+	 * @param doneButton Player's specific done button
+	 * @param primaryStage Primary Stage of the game
+	 */
 	public void handleMouseClick(Player player, MouseEvent event, GraphicsContext gc, Group root, Label stats, Button doneButton, Stage primaryStage)
 	{
 		//If still placing ships
@@ -594,7 +655,12 @@ public class TwoPlayerGUI extends Application
 		}
 	}
 	
-	//Draws the main frame of the screen
+	/**
+	 * Draws the board for each player's scene, and displays their
+	 * name above their respective board, as well as their enemy.
+	 * 
+	 * @param gc Respective players graphicsContext for their scene.
+	 */
 	public void drawBoard(GraphicsContext gc)
 	{
 		/*
@@ -640,7 +706,13 @@ public class TwoPlayerGUI extends Application
 		}
 	}
 	
-	//Sets Win scene
+	/**
+	 * Sets the text box to display the winning player's name
+	 * and updates the scene.
+	 * 
+	 * @param primaryStage
+	 * @param name Winning player's Name
+	 */
 	public void setWinScene(Stage primaryStage, String name)
 	{
 		gc3.strokeText(name, (int)(wWidth/2 - 20), (int)(wHeight/2));
@@ -649,7 +721,9 @@ public class TwoPlayerGUI extends Application
 		primaryStage.show();
 	}
 	
-	//Runs GUI without use of an argument when called
+	/**
+	 * Launches javaFX without the requirement of a parameter.
+	 */
 	public void run()
 	{
 		launch();
