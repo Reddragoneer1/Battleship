@@ -429,8 +429,11 @@ public class Player
 		{
 			if(shipsPlaced.get(i).xChecker(x) && shipsPlaced.get(i).yChecker(y))
 			{
+				System.out.println(shipsPlaced.get(i).getName() + " life before hit is: " + shipsPlaced.get(i).getLife());
 				System.out.println("Hit " + shipsPlaced.get(i).getName() + ".");
 				shipsPlaced.get(i).setLife(shipsPlaced.get(i).getLife()-1);
+				System.out.println(shipsPlaced.get(i).getName() + " life after hit is: " + shipsPlaced.get(i).getLife());
+
 				if(shipsPlaced.get(i).getLife() <= 0)
 				{
 					System.out.println("You have sunk my " + shipsPlaced.get(i).getName());

@@ -88,6 +88,9 @@ public class SinglePlayerGUI extends Application
 		
 		
 		singlePlayer.singlePlayerGame(4);
+		
+		System.out.println(singlePlayer.computer.battleship.getLife());
+		
 		//Creates cell size
 		variableCellSize = (int)(boardSize/boardUnits);
 		
@@ -206,7 +209,7 @@ public class SinglePlayerGUI extends Application
 		quit.setMinWidth(vBox2.getPrefWidth());
 		quit.setLayoutX((int)(wWidth/2) - (int)(vBox.getPrefWidth()/2));
 		quit.setLayoutY(wHeight - 50);
-				
+		quit.setOnAction(e -> System.exit(0));
 		root2.getChildren().add(quit);
 	}
 	
