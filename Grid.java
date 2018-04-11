@@ -70,7 +70,7 @@ public class Grid
 	{
 		return hasShip;
 	}
-
+	
 	/**
 	* Setter method for grid, sets if space has a ship.
 	* @param hasShip A boolean value the determines if the space has a ship.
