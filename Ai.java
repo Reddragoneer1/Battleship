@@ -15,7 +15,6 @@ public class Ai extends Player{
 		else if(smartFire && !foundTarget) smartShipFire();
 		else randomShipFire();
 
-		if(shipChecker(getXPos(),getYPos())) resetShipFire();
 	}
 
 

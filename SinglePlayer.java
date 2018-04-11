@@ -419,7 +419,12 @@ public class SinglePlayer
 					computer.aiDisplay(); //displays the AI's Enemy board
 
 					if(player.shipChecker(player.getXPos(), player.getYPos()))
+					{
 						computerShipsSunk++;
+						computer.resetShipFire();
+
+					}
+						
 					playerDoneTurn = true;		
 				}while(!playerDoneTurn);//while player 2 is not done their turn
 				playerDoneTurn = false;

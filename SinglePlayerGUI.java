@@ -103,8 +103,6 @@ public class SinglePlayerGUI extends Application
 		
 		singlePlayer.singlePlayerGame(4);
 		
-		System.out.println(singlePlayer.computer.battleship.getLife());
-		
 		//Creates cell size
 		variableCellSize = (int)(boardSize/boardUnits);
 		
@@ -491,10 +489,13 @@ public class SinglePlayerGUI extends Application
 				{
 					gc.setFill(Color.RED);
 					gc.fillRect(xc,yc,variableCellSize,variableCellSize);
+					
 					if(singlePlayer.player.shipChecker(singlePlayer.computer.getXPos(), singlePlayer.computer.getYPos()))
 					{
-						computerShipsSunk++;	
+						computerShipsSunk++; 	
 						shipsSunkLabel2.setText("# of ships sunk by Computer = "+ computerShipsSunk);
+						singlePlayer.computer.resetShipFire();
+
 					}
 				}
 				else//Hit empty spot
