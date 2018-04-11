@@ -395,9 +395,9 @@ public class SinglePlayer
 
 	public void boardLinking()
 	{
-		for(int i = 0; i < 8; i++)//iterates through all spaces in board and links the two players boards
+		for(int i = 0; i < board; i++)//iterates through all spaces in board and links the two players boards
 		{
-			for(int j = 0; j < 8; j++)
+			for(int j = 0; j < board; j++)
 			{
 				player.enemyBoard.grid[i][j].setHasShip(computer.playerBoard.grid[i][j].getHasShip());
 				player.enemyBoard.grid[i][j].setShipName(computer.playerBoard.grid[i][j].getShipName());
