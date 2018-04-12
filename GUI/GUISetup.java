@@ -1,3 +1,6 @@
+package GUI;
+import BackEnd.*;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
@@ -24,15 +27,23 @@ public class GUISetup extends Application
 	{		
 		launch(args);
 	}	
-	
+
+
+	/**
+	* Start method, sets up stage, scene, and everything else
+	*/
 	@Override
 	public void start(Stage primaryStage)
+	{
+
+	}
+	public void start(Stage primaryStage, String gameMode)
 	{
 		primaryStage.setTitle("Setup");
 		VBox vbox = new VBox();
 		vbox.setAlignment(Pos.CENTER);
 		HBox playerHBox = new HBox();
-		HBox gameModeHBox = new HBox();
+		// HBox gameModeHBox = new HBox();
 		HBox boardSizeHBox = new HBox();
 		
 		vbox.setOnKeyPressed(event -> {
@@ -53,20 +64,20 @@ public class GUISetup extends Application
 		
 		playerHBox.setPadding(new Insets(5));
 		
-		Label gameModeString = new Label("Game mode:  ");
-		gameModeString.setPadding(new Insets(5));
-		gameModeString.setStyle("-fx-font-size: 16px");
-		gameModeHBox.getChildren().add(0, gameModeString);
+		// Label gameModeString = new Label("Game mode:  ");
+		// gameModeString.setPadding(new Insets(5));
+		// gameModeString.setStyle("-fx-font-size: 16px");
+		// gameModeHBox.getChildren().add(0, gameModeString);
 		
 		
-		ComboBox<String> gameMode = new ComboBox<>();
+		// ComboBox<String> gameMode = new ComboBox<>();
 		
-		gameMode.setItems(FXCollections.observableArrayList("Single player", "Two player"));
-		gameMode.setValue("Single player");
+		// gameMode.setItems(FXCollections.observableArrayList("Single player", "Two player"));
+		// gameMode.setValue("Single player");
 		
-		gameModeHBox.getChildren().add(1, gameMode);
+		// gameModeHBox.getChildren().add(1, gameMode);
 		
-		gameModeHBox.setPadding(new Insets(5));
+		// gameModeHBox.setPadding(new Insets(5));
 		
 		
 		
@@ -110,30 +121,29 @@ public class GUISetup extends Application
 		boardSizeHBox.setPadding(new Insets(5));
 
 		
-		Label loadGameString = new Label("Load game?  ");
-		loadGameString.setPadding(new Insets(5));
-		loadGameString.setStyle("-fx-font-size: 16px");
-		gameModeHBox.getChildren().add(2, loadGameString);
+		// Label loadGameString = new Label("Load game?  ");
+		// loadGameString.setPadding(new Insets(5));
+		// loadGameString.setStyle("-fx-font-size: 16px");
+		// gameModeHBox.getChildren().add(2, loadGameString);
 		
 		
-		ComboBox<String> loadGame = new ComboBox<>();
+		// ComboBox<String> loadGame = new ComboBox<>();
 		
-		loadGame.setItems(FXCollections.observableArrayList("Yes", "No"));
-		loadGame.setValue("No");
+		// loadGame.setItems(FXCollections.observableArrayList("Yes", "No"));
+		// loadGame.setValue("No");
 		
-		gameModeHBox.getChildren().add(3, loadGame);
+		// gameModeHBox.getChildren().add(3, loadGame);
 		
-		gameModeHBox.setPadding(new Insets(5));
+		// gameModeHBox.setPadding(new Insets(5));
 		
-		vbox.getChildren().addAll(playerHBox, gameModeHBox, boardSizeHBox);
+		vbox.getChildren().addAll(playerHBox, /*gameModeHBox, */boardSizeHBox);
 		
 		Button start = new Button("Start");
 		start.setAlignment(Pos.BOTTOM_RIGHT);
 		start.setPadding(new Insets(5));
 		vbox.getChildren().add(start);
 		start.setOnAction(event -> {
-			String game = gameMode.getValue();
-			if(game.equals("Single player"))
+			if(gameMode.equals("SinglePlayer"))
 			{
 				primaryStage.close();
 
@@ -145,7 +155,7 @@ public class GUISetup extends Application
 					e.printStackTrace();
 				}
 			}
-			else if(game.equals("Two player"))
+			else if(gameMode.equals("TwoPlayer"))
 			{
 				
 				primaryStage.close();
@@ -169,11 +179,17 @@ public class GUISetup extends Application
 		primaryStage.show();
 	}
 	
+	/**
+	* Converts the counter to a string so it can be added to a label
+	*/
 	public String toString(int i)
 	{
 		return i + " ";
 	}
-	
+
+	/**
+	* For twoplayer game mode, makes a new popup window for the second player's name
+	*/
 	public void addPlayer(Stage primaryStage)
 	{
 		primaryStage.setTitle("Player 2");
@@ -220,9 +236,11 @@ public class GUISetup extends Application
 			primaryStage.show();
 	}
 
+	/**
+	* launch method external to main
+	*/
 	public void run() {
 		launch();
-		
 	}
 }
 

@@ -1,3 +1,6 @@
+package BackEnd;
+import GUI.*;
+
 import java.util.Random;
 
 public class Ai extends Player{

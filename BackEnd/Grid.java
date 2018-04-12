@@ -6,6 +6,10 @@
  *
  * @author Jackson, David, Nathanael, Ryan, and Sam
  */
+package BackEnd;
+import GUI.*;
+
+
 public class Grid
 {
 	private int xCoord;
