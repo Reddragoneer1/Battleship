@@ -22,25 +22,12 @@ public class SinglePlayer
 	private boolean playerDoneTurn = false;
 	private boolean gameLoaded = false;
 
-/**
-* Setter for board size
-*/
 	public void setBoardSize()
 	{
 		player.setBoardLength(board-1);
 		computer.setBoardLength(board-1);	
 	}
-/**
-* Getter for board size
-*/
-	public int getBoardSize(){
-		return(player.getBoardLength());
-	}
 
-/**
-* Function for changing board size
-* @param x - Size that the grid will be changed too
-*/
 	public void choosingBoardSize(int x)
 	{
 		player.playerBoard.chooseBoardSize(x);
@@ -48,16 +35,12 @@ public class SinglePlayer
 		computer.playerBoard.chooseBoardSize(x);
 		computer.enemyBoard.chooseBoardSize(x);
 	}
-/**
-* Gets the previous saved game
-*/
+
+
 	public boolean getGameLoaded()
 	{
 		return gameLoaded;
 	}
-/**
-* Saves the current loaded game
-*/
 	public void save()
 	{
 		String fileName = "output.txt";
@@ -90,6 +73,7 @@ public class SinglePlayer
 			outputStream.println();
 		}
 
+
 		for(int i = 0; i < computer.getBoardLength(); i++)
 		{
 			for(int j = 0; j < computer.getBoardLength(); j++)
@@ -110,9 +94,7 @@ public class SinglePlayer
 		outputStream.println(playerturn);
 		outputStream.close();
 	}
-/**
-* reads the previous played game from text file
-*/
+
 	public void load()
 	{
 		String fileName = "output.txt";
@@ -190,6 +172,7 @@ public class SinglePlayer
 			inputStream.nextLine();
 		}
 
+
 		for(int i = 0; i < computer.getBoardLength(); i++)
 		{
 			for(int j = 0; j < computer.getBoardLength(); j++)
@@ -209,10 +192,7 @@ public class SinglePlayer
 		playerturn = inputStream.nextBoolean();
 		gameLoaded = true;
 	}
-/**
-* Initializes the single player game, places ships ect.
-* @param gameMode - Ensures that the set game mode is == 1
-*/
+
 	public void singlePlayerGame(int gameMode)
 	{
 		if(gameMode == 1)
@@ -323,10 +303,7 @@ public class SinglePlayer
 				computer.patrolBoat.setLife(2);
 		}
 	}
-/**
-* Selection screen for player to place ships
-* also places AI's ships
-*/
+
 	public void shipPlacementSelection(){
 
 	boolean playerShipPlacementNotOver = true;
@@ -389,9 +366,7 @@ public class SinglePlayer
 			shipPlacer(computer.patrolBoat);
 
 	}
-/**
-* Error checks and places ships (makes sures there is no overlapping)
-*/
+
 	public void shipPlacer(Ship s){
 		boolean isValidShipPlacement;
 		do{
@@ -404,15 +379,12 @@ public class SinglePlayer
 		}while(!isValidShipPlacement);
 	}
 
-/**
-* Links the player board with the ememy board
-* takes information from the computer's board and fills in the enemy board
-*/
+
 	public void boardLinking()
 	{
-		for(int i = 0; i < board; i++)//iterates through all spaces in board and links the two players boards
+		for(int i = 0; i < 8; i++)//iterates through all spaces in board and links the two players boards
 		{
-			for(int j = 0; j < board; j++)
+			for(int j = 0; j < 8; j++)
 			{
 				player.enemyBoard.grid[i][j].setHasShip(computer.playerBoard.grid[i][j].getHasShip());
 				player.enemyBoard.grid[i][j].setShipName(computer.playerBoard.grid[i][j].getShipName());
@@ -422,9 +394,7 @@ public class SinglePlayer
 		}
 		System.out.println("TESTING: Board has been linked");
 	}
-/**
-* Rotates turns between player and computer 
-*/
+
 	public void playerTurn()
 	{
 		int playerShipsSunk = 0;
@@ -500,4 +470,5 @@ public class SinglePlayer
 		System.out.println((playerShipsSunk == 4 ? player.getName() : computer.getName()) + " has won");//prints winner
 	}
 }
+
 
