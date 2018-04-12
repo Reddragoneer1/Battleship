@@ -23,13 +23,20 @@ public class SinglePlayer
 	private boolean gameLoaded = false;
 
 /**
-* Getter for board size
+* Setter for board size
 */
 	public void setBoardSize()
 	{
 		player.setBoardLength(board-1);
 		computer.setBoardLength(board-1);	
 	}
+/**
+* Getter for board size
+*/
+	public int getBoardSize(){
+		return(player.getBoardLength());
+	}
+
 /**
 * Function for changing board size
 * @param x - Size that the grid will be changed too
@@ -316,7 +323,10 @@ public class SinglePlayer
 				computer.patrolBoat.setLife(2);
 		}
 	}
-
+/**
+* Selection screen for player to place ships
+* also places AI's ships
+*/
 	public void shipPlacementSelection(){
 
 	boolean playerShipPlacementNotOver = true;
@@ -379,7 +389,9 @@ public class SinglePlayer
 			shipPlacer(computer.patrolBoat);
 
 	}
-
+/**
+* Error checks and places ships (makes sures there is no overlapping)
+*/
 	public void shipPlacer(Ship s){
 		boolean isValidShipPlacement;
 		do{
@@ -392,12 +404,15 @@ public class SinglePlayer
 		}while(!isValidShipPlacement);
 	}
 
-
+/**
+* Links the player board with the ememy board
+* takes information from the computer's board and fills in the enemy board
+*/
 	public void boardLinking()
 	{
-		for(int i = 0; i < 8; i++)//iterates through all spaces in board and links the two players boards
+		for(int i = 0; i < board; i++)//iterates through all spaces in board and links the two players boards
 		{
-			for(int j = 0; j < 8; j++)
+			for(int j = 0; j < board; j++)
 			{
 				player.enemyBoard.grid[i][j].setHasShip(computer.playerBoard.grid[i][j].getHasShip());
 				player.enemyBoard.grid[i][j].setShipName(computer.playerBoard.grid[i][j].getShipName());
@@ -485,5 +500,4 @@ public class SinglePlayer
 		System.out.println((playerShipsSunk == 4 ? player.getName() : computer.getName()) + " has won");//prints winner
 	}
 }
-
 
