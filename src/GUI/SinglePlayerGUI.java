@@ -51,6 +51,7 @@ public class SinglePlayerGUI extends Application
 	private boolean shotTaken = false;
 	private boolean playerTurn = false;
 	private boolean load = false;
+	private boolean gameLoaded = false;
 	private int computerShipsSunk = 0;
 	private int playerShipsSunk = 0;
 	private int numTurns = 0;
@@ -366,8 +367,8 @@ public class SinglePlayerGUI extends Application
 		if (singlePlayer.player.submarine.getLife()<=0)
 		{
 			computerShipsSunk++;
-		}				
-		gameLoadedGUI = true;
+		}	
+		gameLoaded = true;
 	}
 	
 	/**
