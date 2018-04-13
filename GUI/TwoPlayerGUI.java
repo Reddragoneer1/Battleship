@@ -1,3 +1,6 @@
+package GUI;
+import BackEnd.*;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;

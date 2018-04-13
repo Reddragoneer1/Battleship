@@ -1,3 +1,6 @@
+package BackEnd;
+import GUI.*;
+
 import java.util.Random;
 /**
 * The class extends Player
@@ -21,7 +24,6 @@ public class Ai extends Player{
 	* round.
 	*
 	*/
-
 	public void shipFire(){
 		if(smartFire && foundTarget) smartTargetedShipFire();
 		else if(smartFire && !foundTarget) smartShipFire();
@@ -290,9 +292,4 @@ public class Ai extends Player{
 		}while(!madeMove);
 
 	}
-	
-
-
-
-
 }

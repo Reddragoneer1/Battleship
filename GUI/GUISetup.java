@@ -1,3 +1,6 @@
+package GUI;
+import BackEnd.*;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
@@ -36,11 +39,15 @@ public class GUISetup extends Application
 	@Override
 	public void start(Stage primaryStage)
 	{
+
+	}
+	public void start(Stage primaryStage, String gameMode)
+	{
 		primaryStage.setTitle("Setup");
 		VBox vbox = new VBox();
 		vbox.setAlignment(Pos.CENTER);
 		HBox playerHBox = new HBox();
-		HBox gameModeHBox = new HBox();
+		// HBox gameModeHBox = new HBox();
 		HBox boardSizeHBox = new HBox();
 		
 		vbox.setOnKeyPressed(event -> {
@@ -60,23 +67,7 @@ public class GUISetup extends Application
 		playerHBox.getChildren().add(1, playerNameInput);
 		
 		playerHBox.setPadding(new Insets(5));
-		
-		Label gameModeString = new Label("Game mode:  ");
-		gameModeString.setPadding(new Insets(5));
-		gameModeString.setStyle("-fx-font-size: 16px");
-		gameModeHBox.getChildren().add(0, gameModeString);
-		
-		
-		ComboBox<String> gameMode = new ComboBox<>();
-		
-		gameMode.setItems(FXCollections.observableArrayList("Single player", "Two player"));
-		gameMode.setValue("Single player");
-		
-		gameModeHBox.getChildren().add(1, gameMode);
-		
-		gameModeHBox.setPadding(new Insets(5));
-	
-		
+				
 		Label boardSize = new Label("Board Size: ");
 		boardSize.setPadding(new Insets(5));
 		boardSize.setStyle("-fx-font-size: 16px");
@@ -114,31 +105,14 @@ public class GUISetup extends Application
 		
 		boardSizeHBox.setPadding(new Insets(5));
 
-		
-		Label loadGameString = new Label("Load game?  ");
-		loadGameString.setPadding(new Insets(5));
-		loadGameString.setStyle("-fx-font-size: 16px");
-		gameModeHBox.getChildren().add(2, loadGameString);
-		
-		
-		ComboBox<String> loadGame = new ComboBox<>();
-		
-		loadGame.setItems(FXCollections.observableArrayList("Yes", "No"));
-		loadGame.setValue("No");
-		
-		gameModeHBox.getChildren().add(3, loadGame);
-		
-		gameModeHBox.setPadding(new Insets(5));
-		
-		vbox.getChildren().addAll(playerHBox, gameModeHBox, boardSizeHBox);
+		vbox.getChildren().addAll(playerHBox, boardSizeHBox);
 		
 		Button start = new Button("Start");
 		start.setAlignment(Pos.BOTTOM_RIGHT);
 		start.setPadding(new Insets(5));
 		vbox.getChildren().add(start);
 		start.setOnAction(event -> {
-			String game = gameMode.getValue();
-			if(game.equals("Single player"))
+			if(gameMode.equals("SinglePlayer"))
 			{
 				primaryStage.close();
 
@@ -150,7 +124,7 @@ public class GUISetup extends Application
 					e.printStackTrace();
 				}
 			}
-			else if(game.equals("Two player"))
+			else if(gameMode.equals("TwoPlayer"))
 			{
 				primaryStage.close();
 				addPlayer(new Stage());

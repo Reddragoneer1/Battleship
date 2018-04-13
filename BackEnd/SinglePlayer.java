@@ -1,3 +1,6 @@
+package BackEnd;
+import GUI.*;
+
 import java.util.Scanner;
 import java.io.File;
 import java.io.PrintWriter;
@@ -15,8 +18,8 @@ public class SinglePlayer
 {
 	public Scanner input = new Scanner(System.in);
 	private boolean winner = false;
-	Player player = new Player();
-	Ai computer = new Ai();
+	public Player player = new Player();
+	public Ai computer = new Ai();
 	private int board;
 	private boolean playerturn = true;
 	private boolean playerDoneTurn = false;
@@ -53,7 +56,7 @@ public class SinglePlayer
 */
 	public void save()
 	{
-		String fileName = "output.txt";
+		String fileName = "singleplayer.txt";
 
 		PrintWriter outputStream = null;
 		try
@@ -101,6 +104,20 @@ public class SinglePlayer
 		}
 
 		outputStream.println(playerturn);
+
+		outputStream.println(player.shipsPlaced.size());
+		outputStream.println(computer.shipsPlaced.size());
+
+		for(int i = 0; i < player.shipsPlaced.size(); i++)
+		{
+			outputStream.print(player.shipsPlaced.get(i).getName() + " " + player.shipsPlaced.get(i).getXPos() + " " + player.shipsPlaced.get(i).getYPos() + " " + player.shipsPlaced.get(i).getLife());
+		}
+		outputStream.println();
+		for(int i = 0; i < computer.shipsPlaced.size(); i++)
+		{
+			outputStream.print(computer.shipsPlaced.get(i).getName() + " " + computer.shipsPlaced.get(i).getXPos() + " " + computer.shipsPlaced.get(i).getYPos() + " " + computer.shipsPlaced.get(i).getLife());
+		}
+
 		outputStream.close();
 	}
 /**
@@ -108,7 +125,7 @@ public class SinglePlayer
 */
 	public void load()
 	{
-		String fileName = "output.txt";
+		String fileName = "singleplayer.txt";
 		Scanner inputStream = null;
 
 		try
@@ -200,6 +217,23 @@ public class SinglePlayer
 			}
 		}
 		playerturn = inputStream.nextBoolean();
+
+		int playerShipSize = inputStream.nextInt();
+		int computerShipSize = inputStream.nextInt();
+
+		for(int i = 0; i < playerShipSize; i++)
+		{
+			player.shipsPlaced.get(i).setName(inputStream.next());
+			player.shipsPlaced.get(i).setXPos(inputStream.nextInt());
+			player.shipsPlaced.get(i).setYPos(inputStream.nextInt());
+		}
+		for(int i = 0; i < computerShipSize; i++)
+		{
+			computer.shipsPlaced.get(i).setName(inputStream.next());
+			computer.shipsPlaced.get(i).setXPos(inputStream.nextInt());
+			computer.shipsPlaced.get(i).setYPos(inputStream.nextInt());
+		}
+
 		gameLoaded = true;
 	}
 /**
