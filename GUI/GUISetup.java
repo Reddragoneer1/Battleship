@@ -67,9 +67,7 @@ public class GUISetup extends Application
 		playerHBox.getChildren().add(1, playerNameInput);
 		
 		playerHBox.setPadding(new Insets(5));
-		
-		gameModeHBox.setPadding(new Insets(5));
-		
+				
 		Label boardSize = new Label("Board Size: ");
 		boardSize.setPadding(new Insets(5));
 		boardSize.setStyle("-fx-font-size: 16px");
