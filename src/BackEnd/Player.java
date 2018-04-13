@@ -431,8 +431,10 @@ public class Player
 	{
 		for(int i = 0; i < shipsPlaced.size(); i++)
 		{
+			System.out.println("# of ships: " + shipsPlaced.size());
 			if(shipsPlaced.get(i).xChecker(x) && shipsPlaced.get(i).yChecker(y))
 			{
+				System.out.println("Hit both X and Y of Ship.");
 				shipsPlaced.get(i).setLife(shipsPlaced.get(i).getLife()-1);
 				if(shipsPlaced.get(i).getLife() <= 0)
 				{

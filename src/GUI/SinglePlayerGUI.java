@@ -122,6 +122,11 @@ public class SinglePlayerGUI extends Application
 			
 			singlePlayer.singlePlayerGame(4);
 			
+			singlePlayer.shipPlacer(singlePlayer.computer.battleship);
+			singlePlayer.shipPlacer(singlePlayer.computer.submarine);
+			singlePlayer.shipPlacer(singlePlayer.computer.destroyer);
+			singlePlayer.shipPlacer(singlePlayer.computer.patrolBoat);
+			
 			drawBoard();
 		}
 		else if(load)
@@ -270,10 +275,13 @@ public class SinglePlayerGUI extends Application
 		boardUnits = singlePlayer.getBoard();
 		//Sets cell size
 		variableCellSize = (int)(boardSize/boardUnits);
+		//Gets Username
+		p1Name = singlePlayer.player.getName();
+		gc.strokeText(p1Name, 0, 10);
 		
 		drawBoard();
 		
-		String fileName = "output.txt";
+		String fileName = "singleplayer.txt";
 		Scanner inputStream = null;
 
 		try
@@ -420,10 +428,6 @@ public class SinglePlayerGUI extends Application
 		
 		if(numTurns == 1)//Only needs to be executed once
 		{
-			singlePlayer.shipPlacer(singlePlayer.computer.battleship);
-			singlePlayer.shipPlacer(singlePlayer.computer.submarine);
-			singlePlayer.shipPlacer(singlePlayer.computer.destroyer);
-			singlePlayer.shipPlacer(singlePlayer.computer.patrolBoat);
 			root.getChildren().remove(stats);
 			playerShipPlacementNotOver = false;
 			
@@ -588,7 +592,7 @@ public class SinglePlayerGUI extends Application
 					y = (int)((event.getY()-margin-(boardSize-variableCellSize*boardUnits))/variableCellSize);
 				}
 			
-				System.out.println("x: "+ x + " y: " + y);
+				//System.out.println("x: "+ x + " y: " + y);
 			
 				int xl = wWidth - (boardUnits-x)*variableCellSize;
 				int yl = (y*variableCellSize)+margin+(boardSize-variableCellSize*boardUnits);
@@ -611,6 +615,7 @@ public class SinglePlayerGUI extends Application
 						
 							if(singlePlayer.computer.shipChecker(x, y))
 							{
+								System.out.println("Entered shipChecker after save");
 								playerShipsSunk++;
 								shipsSunkLabel.setText("# of ships sunk by " + p1Name + " = "+ playerShipsSunk);
 							}

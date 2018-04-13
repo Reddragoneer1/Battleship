@@ -87,54 +87,59 @@ public class SinglePlayer
 			System.exit(0);
 		}
 		outputStream.println(board);
-		for(int i = 0; i < player.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < player.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				outputStream.print(player.playerBoard.grid[i][j].getHasShip() + " " + player.playerBoard.grid[i][j].getBeenHit() + " ");
 			}
 			outputStream.println();
 		}
-		for(int i = 0; i < player.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < player.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				outputStream.print(player.enemyBoard.grid[i][j].getHasShip() + " " + player.enemyBoard.grid[i][j].getBeenHit() + " ");
 			}
 			outputStream.println();
 		}
 
-		for(int i = 0; i < computer.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < computer.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				outputStream.print(computer.playerBoard.grid[i][j].getHasShip() + " " + computer.playerBoard.grid[i][j].getBeenHit() + " ");
 			}
 			outputStream.println();
 		}
-		for(int i = 0; i < computer.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < computer.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				outputStream.print(computer.enemyBoard.grid[i][j].getHasShip() + " " + computer.enemyBoard.grid[i][j].getBeenHit() + " ");
 			}
 			outputStream.println();
 		}
-
+			
 		outputStream.println(playerturn);
-
+		
 		outputStream.println(player.shipsPlaced.size());
 		outputStream.println(computer.shipsPlaced.size());
-
-		for(int i = 0; i < player.shipsPlaced.size() - 1; i++)
+		
+		for(int i = 0; i < player.shipsPlaced.size(); i++)
 		{
-			outputStream.print(player.shipsPlaced.get(i).getName() + " " + player.shipsPlaced.get(i).getXPos() + " " + player.shipsPlaced.get(i).getYPos() + " " + player.shipsPlaced.get(i).getLife());
+			outputStream.print(player.shipsPlaced.get(i).getName() + " " + player.shipsPlaced.get(i).getXPos() + " " + player.shipsPlaced.get(i).getYPos() + " " + player.shipsPlaced.get(i).getLife()+" " + player.shipsPlaced.get(i).getVerticalOrientation()+" ");
 		}
 		outputStream.println();
-		for(int i = 0; i < computer.shipsPlaced.size() - 1; i++)
+		for(int i = 0; i < computer.shipsPlaced.size(); i++)
 		{
-			outputStream.print(computer.shipsPlaced.get(i).getName() + " " + computer.shipsPlaced.get(i).getXPos() + " " + computer.shipsPlaced.get(i).getYPos() + " " + computer.shipsPlaced.get(i).getLife());
+			outputStream.print(computer.shipsPlaced.get(i).getName() + " " + computer.shipsPlaced.get(i).getXPos() + " " + computer.shipsPlaced.get(i).getYPos() + " " + computer.shipsPlaced.get(i).getLife()+" " + computer.shipsPlaced.get(i).getVerticalOrientation()+" ");
 		}
+			
+		outputStream.println();
+		outputStream.println(player.getName());
+		outputStream.println(computer.getName());
+		System.out.println("Got here");
 
 		outputStream.close();
 	}
@@ -198,9 +203,9 @@ public class SinglePlayer
 		computer.patrolBoat.setLength(2);
 		computer.patrolBoat.setLife(2);
 
-		for(int i = 0; i < player.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < player.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				player.playerBoard.grid[i][j].setHasShip(inputStream.nextBoolean());
 				player.playerBoard.grid[i][j].setBeenHit(inputStream.nextBoolean());
@@ -208,9 +213,9 @@ public class SinglePlayer
 			inputStream.nextLine();
 
 		}
-		for(int i = 0; i < player.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < player.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				player.enemyBoard.grid[i][j].setHasShip(inputStream.nextBoolean());
 				player.enemyBoard.grid[i][j].setBeenHit(inputStream.nextBoolean());			
@@ -218,44 +223,156 @@ public class SinglePlayer
 			inputStream.nextLine();
 		}
 
-		for(int i = 0; i < computer.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < computer.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				computer.playerBoard.grid[i][j].setHasShip(inputStream.nextBoolean());
 				computer.playerBoard.grid[i][j].setBeenHit(inputStream.nextBoolean());
 			}
 		}
-		for(int i = 0; i < computer.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < computer.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				computer.enemyBoard.grid[i][j].setHasShip(inputStream.nextBoolean());
 				computer.enemyBoard.grid[i][j].setBeenHit(inputStream.nextBoolean());			
 			}
 		}
+				
 		playerturn = inputStream.nextBoolean();
-
+		
 		int playerShipSize = inputStream.nextInt();
 		int computerShipSize = inputStream.nextInt();
-
-		for(int i = 0; i < playerShipSize - 1; i++)
+		System.out.println(playerShipSize+","+computerShipSize);
+		
+		for(int i = 0; i < playerShipSize; i++)
 		{
-			player.shipsPlaced.get(i).setName(inputStream.next());
+			String s = inputStream.next();
+			if (s.equals("Battleship"))
+			{
+				player.battleship.setName(s);
+				player.battleship.setXPos(inputStream.nextInt());
+				player.battleship.setYPos(inputStream.nextInt());
+				player.battleship.setLife(inputStream.nextInt());
+				player.battleship.setVerticalOrientation(inputStream.nextBoolean());
+
+				player.battleship.setYPositions(player.battleship.getYPos());
+				player.battleship.setXPositions(player.battleship.getXPos());
+				
+				player.shipsPlaced.add(player.battleship);
+			}
+			if (s.equals("Destroyer"))
+			{
+				player.destroyer.setName(s);
+				player.destroyer.setXPos(inputStream.nextInt());
+				player.destroyer.setYPos(inputStream.nextInt());
+				player.destroyer.setLife(inputStream.nextInt());
+				player.destroyer.setVerticalOrientation(inputStream.nextBoolean());
+				
+				player.destroyer.setYPositions(player.destroyer.getYPos());
+				player.destroyer.setXPositions(player.destroyer.getXPos());
+				
+				player.shipsPlaced.add(player.destroyer);
+			}
+			if (s.equals("Submarine"))
+			{
+				player.submarine.setName(s);
+				player.submarine.setXPos(inputStream.nextInt());
+				player.submarine.setYPos(inputStream.nextInt());
+				player.submarine.setLife(inputStream.nextInt());
+				player.submarine.setVerticalOrientation(inputStream.nextBoolean());
+
+				player.submarine.setYPositions(player.submarine.getYPos());
+				player.submarine.setXPositions(player.submarine.getXPos());
+				
+				player.shipsPlaced.add(player.submarine);
+			}
+			if (s.equals("PatrolBoat"))
+			{
+				player.patrolBoat.setName(s);
+				player.patrolBoat.setXPos(inputStream.nextInt());
+				player.patrolBoat.setYPos(inputStream.nextInt());
+				player.patrolBoat.setLife(inputStream.nextInt());
+				player.patrolBoat.setVerticalOrientation(inputStream.nextBoolean());
+				
+				player.patrolBoat.setYPositions(player.patrolBoat.getYPos());
+				player.patrolBoat.setXPositions(player.patrolBoat.getXPos());
+
+				player.shipsPlaced.add(player.patrolBoat);
+			}
+			
+			/*player.shipsPlaced.get(i).setName(inputStream.next());
 			player.shipsPlaced.get(i).setXPos(inputStream.nextInt());
 			player.shipsPlaced.get(i).setYPos(inputStream.nextInt());
-			player.shipsPlaced.get(i).setLife(inputStream.nextInt());
-
+			player.shipsPlaced.get(i).setLife(inputStream.nextInt());*/
+			
 		}
-		for(int i = 0; i < computerShipSize - 1; i++)
+		for(int i = 0; i < computerShipSize; i++)
 		{
-			computer.shipsPlaced.get(i).setName(inputStream.next());
+			String s = inputStream.next();
+			if (s.equals("Battleship"))
+			{
+				computer.battleship.setName(s);
+				computer.battleship.setXPos(inputStream.nextInt());
+				computer.battleship.setYPos(inputStream.nextInt());
+				computer.battleship.setLife(inputStream.nextInt());
+				computer.battleship.setVerticalOrientation(inputStream.nextBoolean());
+
+				computer.battleship.setYPositions(computer.battleship.getYPos());
+				computer.battleship.setXPositions(computer.battleship.getXPos());
+				
+				computer.shipsPlaced.add(computer.battleship);
+			}
+			if (s.equals("Destroyer"))
+			{
+				computer.destroyer.setName(s);
+				computer.destroyer.setXPos(inputStream.nextInt());
+				computer.destroyer.setYPos(inputStream.nextInt());
+				computer.destroyer.setLife(inputStream.nextInt());
+				computer.destroyer.setVerticalOrientation(inputStream.nextBoolean());
+
+				computer.destroyer.setYPositions(computer.destroyer.getYPos());
+				computer.destroyer.setXPositions(computer.destroyer.getXPos());
+				
+				computer.shipsPlaced.add(computer.destroyer);
+			}
+			if (s.equals("Submarine"))
+			{
+				computer.submarine.setName(s);
+				computer.submarine.setXPos(inputStream.nextInt());
+				computer.submarine.setYPos(inputStream.nextInt());
+				computer.submarine.setLife(inputStream.nextInt());
+				computer.submarine.setVerticalOrientation(inputStream.nextBoolean());
+
+				computer.submarine.setYPositions(computer.submarine.getYPos());
+				computer.submarine.setXPositions(computer.submarine.getXPos());
+				
+				computer.shipsPlaced.add(computer.submarine);
+			}
+			if (s.equals("PatrolBoat"))
+			{
+				computer.patrolBoat.setName(s);
+				computer.patrolBoat.setXPos(inputStream.nextInt());
+				computer.patrolBoat.setYPos(inputStream.nextInt());
+				computer.patrolBoat.setLife(inputStream.nextInt());
+				computer.patrolBoat.setVerticalOrientation(inputStream.nextBoolean());
+
+				computer.patrolBoat.setYPositions(computer.patrolBoat.getYPos());
+				computer.patrolBoat.setXPositions(computer.patrolBoat.getXPos());
+				
+				computer.shipsPlaced.add(computer.patrolBoat);
+			}
+			/*computer.shipsPlaced.get(i).setName(inputStream.next());
 			computer.shipsPlaced.get(i).setXPos(inputStream.nextInt());
 			computer.shipsPlaced.get(i).setYPos(inputStream.nextInt());
-			computer.shipsPlaced.get(i).setLife(inputStream.nextInt());
-
+			computer.shipsPlaced.get(i).setLife(inputStream.nextInt());*/
 		}
-
+		inputStream.nextLine();
+		inputStream.nextLine();
+		player.setName(inputStream.nextLine());
+		computer.setName(inputStream.nextLine());	
+		
 		gameLoaded = true;
 	}
 /**

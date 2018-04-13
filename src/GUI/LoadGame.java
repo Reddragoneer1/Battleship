@@ -95,7 +95,7 @@ public class LoadGame extends Application
 						else
 						{
 							TwoPlayerGUI gui = new TwoPlayerGUI();
-							gui.twoPlayer.load();
+							//gui.twoPlayer.load();
 							try {
 								//gui.setLoad(true);
 								gui.start(new Stage());

@@ -112,6 +112,11 @@ public class Ship
 		return verticalOrientation;
 	}   
 	
+	public void setVerticalOrientation(boolean ort)
+	{
+		verticalOrientation = ort;
+	}
+	
 	/**
 	* Setter method for the X position of a ship.
 	* @param x An integer for X position.
@@ -218,7 +223,12 @@ public class Ship
 		for(int i = 0; i < xPositions.length; i++)
 		{
 			if(xPositions[i] == x)
+			{
+				System.out.println("x Checker Returned TRUE");
+
 				return true;
+			}
+				
 		}
 		return false;
 	}
@@ -230,10 +240,16 @@ public class Ship
 	*/    	
 	public boolean yChecker(int y)
 	{
+		System.out.println("yPositions length: " + yPositions.length);
+
 		for(int i = 0; i < yPositions.length; i++)
 		{
 			if(yPositions[i] == y)
+			{
+				System.out.println("x Checker Returned TRUE");
 				return true;
+			}
+				
 		}
 		return false;
 	}
