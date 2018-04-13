@@ -46,5 +46,5 @@ false false false false false false false false false false false false false fa
 true
 4
 4
-Patrol Boat 11 4 2Destroyer 7 0 3Submarine 4 0 3Battleship 6 6 4
-Battleship 2 6 4Submarine 6 5 3Destroyer 1 1 3Patrol Boat 2 10 2
+Patrol Boat 11 4 2 Destroyer 7 0 3 Submarine 4 0 3 Battleship 6 6 4
+Battleship 2 6 4 Submarine 6 5 3 Destroyer 1 1 3 Patrol Boat 2 10 2

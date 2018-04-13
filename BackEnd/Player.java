@@ -26,6 +26,7 @@ public class Player
 	public Ship submarine = new Ship();
 	public Ship destroyer = new Ship();
 	public Ship patrolBoat = new Ship();
+	public Ship nullShip = new Ship();
 
 	public ArrayList<Ship> shipsPlaced = new ArrayList<Ship>();
 
@@ -450,6 +451,7 @@ public class Player
 		else
 			enemyBoard.grid[x][y].setBeenHit(true);
 	}
+	
 	public boolean validShipPlacement(Ship s)
 	{
 		s.setXPos(xPos); 	//sets x,y cords
@@ -457,6 +459,8 @@ public class Player
 		s.setXPositions(xPos);
 		s.setYPositions(yPos);
 
+		System.out.println("BOARD LENGTH IN PLAYER: " + boardLength);
+		
 		if(s.getVerticalOrientation())	//checks if placement is for vertical
 		{
 			for(int j = 0; j < current.getLength(); j++)	//loops through to update grid for the length of the ship

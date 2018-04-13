@@ -132,8 +132,10 @@ public class GUISetup extends Application
 
 				SinglePlayerGUI gui = new SinglePlayerGUI();
 				try {
+					gui.boardUnits = i;
+					gui.p1Name = playerNameInput.getText();
+					
 					gui.start(new Stage());
-					gui.singlePlayer.player.setName(playerName.getText());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
