@@ -432,7 +432,7 @@ public class SinglePlayerTest
 
 		singlePlayer.save();
 
-		String fileName = "output.txt";
+		String fileName = "singleplayer.txt";
 		Scanner inputStream = null;
 
 		try
@@ -591,7 +591,7 @@ public class SinglePlayerTest
 
 		singlePlayer2.save();
 
-		String fileName = "output.txt";
+		String fileName = "singleplayer.txt";
 		Scanner inputStream = null;
 
 		try
