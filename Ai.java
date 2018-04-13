@@ -13,8 +13,8 @@ public class Ai extends Player{
 	private boolean foundTarget = false;
 	private int hitShipXPos;
 	private int hitShipYPos;
-	private int orginHitXPos;
-	private int orginHitYPos;
+	private int originHitXPos;
+	private int originHitYPos;
 
 	/**
 	* Method determinds if a ship has been targeted in the previous
@@ -107,11 +107,11 @@ public class Ai extends Player{
 		hitShipYPos = hitYPos;
 	}
 	/**
-	* Setter for the orginal ship hit position
+	* Setter for the original ship hit position
 	*/
-	public void setOrginHitPos(int hitXPos, int hitYPos){ //sets orgin hit
-		orginHitXPos = hitXPos;
-		orginHitYPos = hitYPos;
+	public void setOriginHitPos(int hitXPos, int hitYPos){ //sets origin hit
+		originHitXPos = hitXPos;
+		originHitYPos = hitYPos;
 	}
 	/**
 	* Setter for the position move
@@ -123,10 +123,10 @@ public class Ai extends Player{
 		setYPos(y);
 	}
 	/**
-	* Resets to orginal hit position, and changes back to smartFire
+	* Resets to original hit position, and changes back to smartFire
 	*/
 	public void resetHitPos(){
-		setHitPos(orginHitXPos, orginHitYPos);
+		setHitPos(originHitXPos, originHitYPos);
 		direction = 0;
 		foundTarget = false;
 	}
@@ -146,7 +146,7 @@ public class Ai extends Player{
 			if(enemyBoard.grid[randXPos][randYPos].getHasShip()){
 				smartFire = true;
 				setHitPos(randXPos,randYPos);
-				setOrginHitPos(randXPos,randYPos);
+				setOriginHitPos(randXPos,randYPos);
 			}
 		
 		}while(!isValidMove);
