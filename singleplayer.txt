@@ -1,46 +1,50 @@
-11
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false true false true false true false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false true false false false false false false false false false false false false false false false false false 
-false false true false false false false false false false false false false false false false false false false false 
-false false true false false false false false false false false false true false true false true false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false true false true false true false true false 
-false false false false false false false false false false true false true false true false false false false false 
-false false true false true false true false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false true false true false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false true false true false true false true false 
-false false false false false false false false false false true false true false true false false false false false 
-false false true false true false true false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false true false true false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false true false true false true false 
-false false false false false false false false false false false false false false false false false false false false 
-false false false false false false false false false false false false false false false false false false false false 
-false false true false false false false false false false false false false false false false false false false false 
-false false true false false false false false false false false false false false false false false false false false 
-false false true false false false false false false false false false true false true false true false false false 
+12
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+true false false false false false false false false false false false false false false false false false false false false false 
+true false false false false false false false false false false false false false false false false false false false false false 
+true false false false false false false false false false false false true false true false true false true false false false 
+true false true false true false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false true false true false true false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false true false false false false false false false true false 
+false false false false false false false false false false false false true false false false false false false false false false 
+false false false false false false false false false false false false true false false false false false false false false false 
+false false false false false false false false false false false false true false false false false false false false false false 
+false false false false false false false false false false true false true false true false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false true false true false true false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false true false false false false false false false true false 
+false false false false false false false false false false false false true false false false false false false false false false 
+false false false false false false false false false false false false true false false false false false false false false false 
+false false false false false false false false false false false false true false false false false false false false false false 
+false false false false false false false false false false true false true false true false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+true false false false false false false false false false false false false false false false false false false false false false 
+true false false false false false false false false false false false false false false false false false false false false false 
+true false false false false false false false false false false false true false true false true false true false false false 
+true false true false true false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
+false false false false false false false false false false false false false false false false false false false false false false 
 true
 4
 4
-Patrol Boat 10 1 2Destroyer 7 1 3Submarine 9 6 3Battleship 4 7 4
-Battleship 1 6 4Submarine 3 1 3Destroyer 2 5 3Patrol Boat 4 7 2
+Patrol Boat 11 4 2Destroyer 7 0 3Submarine 4 0 3Battleship 6 6 4
+Battleship 2 6 4Submarine 6 5 3Destroyer 1 1 3Patrol Boat 2 10 2
