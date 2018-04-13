@@ -31,7 +31,7 @@ public class SinglePlayer
 	 */
 	public void setBoard(int b)
 	{
-		board = b;
+		this.board = b;
 	}
 	
 	/**
@@ -326,8 +326,11 @@ public class SinglePlayer
 		computer.patrolBoat.setLength(2);
 		computer.patrolBoat.setLife(2);
 	}
-		
 
+/**
+* Selection screen for player to place ships
+* also places AI's ships
+*/	
 	public void shipPlacementSelection(){
 
 	boolean playerShipPlacementNotOver = true;
@@ -391,6 +394,9 @@ public class SinglePlayer
 
 	}
 
+/**
+* Error checks and places ships (makes sures there is no overlapping)
+*/
 	public void shipPlacer(Ship s){
 		boolean isValidShipPlacement;
 		do{
@@ -404,6 +410,10 @@ public class SinglePlayer
 		}while(!isValidShipPlacement);
 	}
 
+/**
+* Links the player board with the ememy board
+* takes information from the computer's board and fills in the enemy board
+*/
 
 	public void boardLinking()
 	{
