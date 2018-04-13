@@ -1,3 +1,7 @@
+package BackEnd;
+import GUI.*;
+
+
 import java.util.ArrayList;
 
 /**
@@ -10,26 +14,34 @@ import java.util.ArrayList;
 public class Player
 {
 	private String name;
-	Board playerBoard = new Board();	//Creates board for player from board class
-	Board enemyBoard = new Board();		//Creates enemy board for player from board class
+	public Board playerBoard = new Board();	//Creates board for player from board class
+	public Board enemyBoard = new Board();		//Creates enemy board for player from board class
 	private int xPos = 0;
 	private int yPos = 0;
 
 	private int boardLength = 7; //Since array starts at 0
 
-	Ship current = new Ship();
-	Ship battleship = new Ship();
-	Ship submarine = new Ship();
-	Ship destroyer = new Ship();
-	Ship patrolBoat = new Ship();
+	public Ship current = new Ship();
+	public Ship battleship = new Ship();
+	public Ship submarine = new Ship();
+	public Ship destroyer = new Ship();
+	public Ship patrolBoat = new Ship();
 
-	ArrayList<Ship> shipsPlaced = new ArrayList<Ship>();
+	public ArrayList<Ship> shipsPlaced = new ArrayList<Ship>();
 
+	/**
+	* Setter for board length
+	* @param board - Size of board
+	*/
 	public void setBoardLength(int board)
 	{
 		boardLength = board;
 	}
 
+	/**
+	* Getter for board length
+	* @return boardLength Returns board length
+	*/
 	public int getBoardLength()
 	{
 		return boardLength;
@@ -125,60 +137,91 @@ public class Player
 		this.yPos = yPos;
 	}
 
+	/**
+	* Getter for current ship selected
+	* @return current Returns current selected ship
+	*/
 	public Ship getCurrent()
 	{
 		return current;
 	}
 
-
+	/**
+	* Set current ship
+	* @param current Ship being set to current ship
+	*/
 	public void setCurrent(Ship current)
 	{
 		this.current = current;
 	}
 
-
+	/**
+	* Getter for battleship Ship object
+	* @return battleship Returns battleship ship object
+	*/
 	public Ship getBattleship()
 	{
 		return battleship;
 	}
 
-
+	/**
+	* Setter for Battleship ship object
+	* @param battleship Battleship ship object
+	*/
 	public void setBattleship(Ship battleship)
 	{
 		this.battleship = battleship;
 	}
 
-
+	/**
+	* Getter for submarine Ship object
+	* @return submarine Returns submarine ship object
+	*/
 	public Ship getSubmarine()
 	{
 		return submarine;
 	}
 
-
+	/**
+	* Setter for Submarine ship object
+	* @param submarine Submarine ship object
+	*/
 	public void setSubmarine(Ship submarine)
 	{
 		this.submarine = submarine;
 	}
 
-
+	/**
+	* Getter for destroyer Ship object
+	* @return destroyer Returns destroyer ship object
+	*/
 	public Ship getDestroyer()
 	{
 		return destroyer;
 	}
 
-
+	/**
+	* Setter for Destroyer ship object
+	* @param destroyer Destroyer ship object
+	*/
 	public void setDestroyer(Ship destroyer)
 	{
 		this.destroyer = destroyer;
 	}
 
-
+	/**
+	* Getter for PatrolBoat Ship object
+	* @return patrolBoat Returns patrolBoat ship object
+	*/
 	public Ship getPatrolBoat()
 	{
 		return patrolBoat;
 	}
 
-
+	/**
+	* Setter for PatrolBoat ship object
+	* @param patrolBoat PatrolBoat ship object
+	*/
 	public void setPatrolBoat(Ship patrolBoat)
 	{
 		this.patrolBoat = patrolBoat;
@@ -339,6 +382,7 @@ public class Player
 	
 	/**
 	 * The method allows the player to place a ship and updates it inside the grid
+	 * @param s - Ship being placed
 	 */
 	public void shipPlacement(Ship s)
 	{
@@ -371,7 +415,9 @@ public class Player
 			}
 		}
 	}
-	
+	/**
+	* This method prints the array list of ships and the position
+	*/
 	public void printArrayList() 
 	{
 		for(int i = 0; i < shipsPlaced.size(); i++)
@@ -421,7 +467,13 @@ public class Player
 		}
 	}
 	
-	//TODO: Needs Java Documentation
+	/**
+	* Checks if the move has hit a ship
+	* if ship has been hit it will subtract life from that ship
+	* if life is 0 it will display message
+	* @param x - X Position
+	* @param y - Y Position
+	*/
 	public boolean shipChecker(int x, int y)
 	{
 		for(int i = 0; i < shipsPlaced.size(); i++)
@@ -438,7 +490,11 @@ public class Player
 		}
 		return false;
 	}
-
+	/**
+	* Checks if spot has been hit
+	* @param x - X Position
+	* @param y - Y Position
+	*/
 	public void beenHitChecker(int x, int y)
 	{
 		if(enemyBoard.grid[x][y].getBeenHit())
@@ -446,6 +502,11 @@ public class Player
 		else
 			enemyBoard.grid[x][y].setBeenHit(true);
 	}
+
+	/**
+	* Checks array list if the ship placement is valid (ex. not over lapping and not out of bounds)
+	* @param s - Ship that is being error checked
+	*/
 	public boolean validShipPlacement(Ship s)
 	{
 		s.setXPos(xPos); 	//sets x,y cords
@@ -534,9 +595,15 @@ public class Player
 		
 		return statsString;
 	}
+
+	/**
+	* Returns if enemy board has been hit
+	* @param x - X Position
+	* @param y - Y Position
+	* @return Returns the boolean for the position corresponding to the x and y positions, if hit returns True, if not returns False
+	*/
 	public boolean hitChecker(int x, int y)
 	{
-		
 		return !enemyBoard.grid[x][y].getBeenHit();
 	}
 
