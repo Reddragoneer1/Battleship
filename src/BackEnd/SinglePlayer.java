@@ -281,20 +281,8 @@ public class SinglePlayer
 	
 				System.out.println("What size would you like the board?");
 				board = input.nextInt();
-				
-				
 			}
 		}
-<<<<<<< HEAD:src/BackEnd/SinglePlayer.java
-=======
-		else
-		{
-
-				choosingBoardSize(8);
-				board = 8;
-				setBoardSize();
->>>>>>> 0a063772e652e2e817a279441f8bbc6f79846620:BackEnd/SinglePlayer.java
-				
 		
 		choosingBoardSize(board);
 		setBoardSize();

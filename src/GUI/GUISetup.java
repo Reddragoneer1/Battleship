@@ -133,7 +133,6 @@ public class GUISetup extends Application
 				SinglePlayerGUI gui = new SinglePlayerGUI();
 				try {
 					gui.boardUnits = i;
-					System.out.println("BOARD UNITS: " + gui.boardUnits);
 					gui.p1Name = playerNameInput.getText();
 					
 					gui.start(new Stage());
