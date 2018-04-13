@@ -1,3 +1,6 @@
+package BackEnd;
+import GUI.*;
+
 import java.util.Scanner;
 import java.io.File;
 import java.io.PrintWriter;
@@ -22,8 +25,8 @@ public class TwoPlayer
 	private boolean playerDoneTurn = false;
 	private int gameMode;
 	private int board;
-	Player player1 = new Player();	//makes new objects from Player class
-	Player player2 = new Player();
+	public Player player1 = new Player();	//makes new objects from Player class
+	public Player player2 = new Player();
 	private boolean gameLoaded = false;
 
 	/*public void twoPlayerSetup()
@@ -44,7 +47,7 @@ public class TwoPlayer
 	}
 	public void save()
 	{
-		String fileName = "output.txt";
+		String fileName = "twoplayer.txt";
 
 		PrintWriter outputStream = null;
 		try
@@ -93,11 +96,25 @@ public class TwoPlayer
 		}
 
 		outputStream.println(player1turn);
+
+		outputStream.println(player1.shipsPlaced.size());
+		outputStream.println(player2.shipsPlaced.size());
+
+		for(int i = 0; i < player1.shipsPlaced.size(); i++)
+		{
+			outputStream.print(player1.shipsPlaced.get(i).getName() + " " + player1.shipsPlaced.get(i).getXPos() + " " + player1.shipsPlaced.get(i).getYPos() + " " + player1.shipsPlaced.get(i).getLife());
+		}
+		outputStream.println();
+		for(int i = 0; i < player2.shipsPlaced.size(); i++)
+		{
+			outputStream.print(player2.shipsPlaced.get(i).getName() + " " + player2.shipsPlaced.get(i).getXPos() + " " + player2.shipsPlaced.get(i).getYPos() + " " + player2.shipsPlaced.get(i).getLife());
+		}
+
 		outputStream.close();
 	}
 	public void load()
 	{
-		String fileName = "output.txt";
+		String fileName = "twoplayer.txt";
 		Scanner inputStream = null;
 
 		try
@@ -190,6 +207,23 @@ public class TwoPlayer
 			}
 		}
 		player1turn = inputStream.nextBoolean();
+
+		int player1ShipSize = inputStream.nextInt();
+		int player2ShipSize = inputStream.nextInt();
+
+		for(int i = 0; i < player1ShipSize; i++)
+		{
+			player1.shipsPlaced.get(i).setName(inputStream.next());
+			player1.shipsPlaced.get(i).setXPos(inputStream.nextInt());
+			player1.shipsPlaced.get(i).setYPos(inputStream.nextInt());
+		}
+		for(int i = 0; i < player2ShipSize; i++)
+		{
+			player2.shipsPlaced.get(i).setName(inputStream.next());
+			player2.shipsPlaced.get(i).setXPos(inputStream.nextInt());
+			player2.shipsPlaced.get(i).setYPos(inputStream.nextInt());
+		}
+
 		gameLoaded = true;
 	}
 
@@ -273,7 +307,7 @@ public class TwoPlayer
 	 * The method goes through the process of placing player
 	 * ships on the board, and choosing which ship to place.
 	 */
-	public void shipPlacementSelection()	//TODO: Make this for 1 player and call it in Menu, also move it to Game
+	public void shipPlacementSelection()
 	{
 		boolean player1ShipPlacementNotOver = true;
 		boolean player2ShipPlacementNotOver = true;
@@ -398,9 +432,9 @@ public class TwoPlayer
 	 */
 	public void boardLinking()
 	{
-		for(int i = 0; i < 8; i++)//iterates through all spaces in board and links the two players boards
+		for(int i = 0; i < board; i++)//iterates through all spaces in board and links the two players boards
 		{
-			for(int j = 0; j < 8; j++)
+			for(int j = 0; j < board; j++)
 			{
 				player1.enemyBoard.grid[i][j].setHasShip(player2.playerBoard.grid[i][j].getHasShip());
 				player1.enemyBoard.grid[i][j].setShipName(player2.playerBoard.grid[i][j].getShipName());
@@ -415,7 +449,7 @@ public class TwoPlayer
 	 * Such as, moving position, firing weapon, and ending your turn.
 	 * Also displays the coordinates of the selected spot. 
 	 */
-	public void playerTurn()	//TODO: Change player turn so it's per player
+	public void playerTurn()
 	{
 		int player1ShipsSunk = 0;
 		int player2ShipsSunk = 0;

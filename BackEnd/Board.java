@@ -1,3 +1,7 @@
+package BackEnd;
+import GUI.*;
+
+
 import java.util.Scanner;
 /**
  * The class displays the board based on the grid properties.
@@ -10,7 +14,7 @@ import java.util.Scanner;
 public class Board
 {
 	private int boardSize;
-	Grid[][] grid;
+	public Grid[][] grid;
 
 
 	/**

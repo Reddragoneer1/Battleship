@@ -1,3 +1,7 @@
+package BackEnd;
+import GUI.*;
+
+
 import java.util.ArrayList;
 
 /**
@@ -10,20 +14,20 @@ import java.util.ArrayList;
 public class Player
 {
 	private String name;
-	Board playerBoard = new Board();	//Creates board for player from board class
-	Board enemyBoard = new Board();		//Creates enemy board for player from board class
+	public Board playerBoard = new Board();	//Creates board for player from board class
+	public Board enemyBoard = new Board();		//Creates enemy board for player from board class
 	private int xPos = 0;
 	private int yPos = 0;
 
 	private int boardLength = 7; //Since array starts at 0
 
-	Ship current = new Ship();
-	Ship battleship = new Ship();
-	Ship submarine = new Ship();
-	Ship destroyer = new Ship();
-	Ship patrolBoat = new Ship();
+	public Ship current = new Ship();
+	public Ship battleship = new Ship();
+	public Ship submarine = new Ship();
+	public Ship destroyer = new Ship();
+	public Ship patrolBoat = new Ship();
 
-	ArrayList<Ship> shipsPlaced = new ArrayList<Ship>();
+	public ArrayList<Ship> shipsPlaced = new ArrayList<Ship>();
 
 	public void setBoardLength(int board)
 	{
@@ -343,7 +347,7 @@ public class Player
 	public void shipPlacement(Ship s)
 	{
 		s.setXPos(xPos); //sets x,y cords
-		s.setYPos(yPos);	//TODO: This may be redundant so someone might want to change this
+		s.setYPos(yPos);
 		s.setXPositions(xPos);
 		s.setYPositions(yPos);
 
@@ -449,7 +453,7 @@ public class Player
 	public boolean validShipPlacement(Ship s)
 	{
 		s.setXPos(xPos); 	//sets x,y cords
-		s.setYPos(yPos);	//TODO: This may be redundant so someone might want to change this
+		s.setYPos(yPos);
 		s.setXPositions(xPos);
 		s.setYPositions(yPos);
 

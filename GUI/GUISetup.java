@@ -1,3 +1,6 @@
+package GUI;
+import BackEnd.*;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
@@ -30,17 +33,24 @@ public class GUISetup extends Application
 	}	
 	
 	/**
-	 * The method creates buttons, labels, and a scene for the start screen, including the name of the player.
-	 * @param primaryStage An Stage object to be populated with buttons and labels.
+	 * This is the default constructor to override Application
 	 */ 
 	@Override
 	public void start(Stage primaryStage)
+	{
+
+	}
+	/**
+	 * The method is the overload constructor that creates buttons, labels, and a scene for the start screen, including the name of the player.
+	 * @param primaryStage An Stage object to be populated with buttons and labels. gameMode is passed in from LoadGame
+	 */ 
+	public void start(Stage primaryStage, String gameMode)
 	{
 		primaryStage.setTitle("Setup");
 		VBox vbox = new VBox();
 		vbox.setAlignment(Pos.CENTER);
 		HBox playerHBox = new HBox();
-		HBox gameModeHBox = new HBox();
+		// HBox gameModeHBox = new HBox();
 		HBox boardSizeHBox = new HBox();
 		
 		vbox.setOnKeyPressed(event -> {
@@ -60,23 +70,7 @@ public class GUISetup extends Application
 		playerHBox.getChildren().add(1, playerNameInput);
 		
 		playerHBox.setPadding(new Insets(5));
-		
-		Label gameModeString = new Label("Game mode:  ");
-		gameModeString.setPadding(new Insets(5));
-		gameModeString.setStyle("-fx-font-size: 16px");
-		gameModeHBox.getChildren().add(0, gameModeString);
-		
-		
-		ComboBox<String> gameMode = new ComboBox<>();
-		
-		gameMode.setItems(FXCollections.observableArrayList("Single player", "Two player"));
-		gameMode.setValue("Single player");
-		
-		gameModeHBox.getChildren().add(1, gameMode);
-		
-		gameModeHBox.setPadding(new Insets(5));
-	
-		
+				
 		Label boardSize = new Label("Board Size: ");
 		boardSize.setPadding(new Insets(5));
 		boardSize.setStyle("-fx-font-size: 16px");
@@ -90,18 +84,28 @@ public class GUISetup extends Application
 		Button increaseBoardSize = new Button("+");
 		increaseBoardSize.setMinWidth(50);
 		boardSizeHBox.getChildren().add(2, increaseBoardSize);
-		increaseBoardSize.setOnAction(event -> {
-			i++;
-			boardSizeNum.setText(toString(i));
-		});
+
 		
 		
 		Button decreaseBoardSize = new Button("-");
 		decreaseBoardSize.setMinWidth(50);
 		boardSizeHBox.getChildren().add(3, decreaseBoardSize);
 		
+		increaseBoardSize.setOnAction(event -> {
+			if(i < 16)
+			{
+				i++;
+			}
+			else
+			{
+			 	increaseBoardSize.setStyle("-fx-color: grey");
+			}
+			decreaseBoardSize.setStyle("-fx-color: #DCDCDC");
+			boardSizeNum.setText(toString(i));
+		});
+
 		decreaseBoardSize.setOnAction(event -> {
-			if(i > 7)	//TODO: Implement color fade when 7 or less
+			if(i > 7)
 			{
 				i--;
 			}
@@ -109,36 +113,20 @@ public class GUISetup extends Application
 			{
 				decreaseBoardSize.setStyle("-fx-color: grey");
 			}
+			increaseBoardSize.setStyle("-fx-color: #DCDCDC");
 			boardSizeNum.setText(toString(i));
 		});
 		
 		boardSizeHBox.setPadding(new Insets(5));
 
-		
-		Label loadGameString = new Label("Load game?  ");
-		loadGameString.setPadding(new Insets(5));
-		loadGameString.setStyle("-fx-font-size: 16px");
-		gameModeHBox.getChildren().add(2, loadGameString);
-		
-		
-		ComboBox<String> loadGame = new ComboBox<>();
-		
-		loadGame.setItems(FXCollections.observableArrayList("Yes", "No"));
-		loadGame.setValue("No");
-		
-		gameModeHBox.getChildren().add(3, loadGame);
-		
-		gameModeHBox.setPadding(new Insets(5));
-		
-		vbox.getChildren().addAll(playerHBox, gameModeHBox, boardSizeHBox);
+		vbox.getChildren().addAll(playerHBox, boardSizeHBox);
 		
 		Button start = new Button("Start");
 		start.setAlignment(Pos.BOTTOM_RIGHT);
 		start.setPadding(new Insets(5));
 		vbox.getChildren().add(start);
 		start.setOnAction(event -> {
-			String game = gameMode.getValue();
-			if(game.equals("Single player"))
+			if(gameMode.equals("SinglePlayer"))
 			{
 				primaryStage.close();
 
@@ -150,7 +138,7 @@ public class GUISetup extends Application
 					e.printStackTrace();
 				}
 			}
-			else if(game.equals("Two player"))
+			else if(gameMode.equals("TwoPlayer"))
 			{
 				primaryStage.close();
 				addPlayer(new Stage());

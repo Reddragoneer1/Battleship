@@ -1,3 +1,7 @@
+package BackEnd;
+import GUI.*;
+
+
 import java.util.Scanner;
 /**
  * This class is just the menu for which the user chooses
@@ -10,8 +14,8 @@ public class Menu
      */
 	public void startUp()
 	{
-		GUISetup setup = new GUISetup();
-		setup.run();
+		LoadGame loadGame = new LoadGame();
+		loadGame.run();
 //		Scanner input = new Scanner(System.in);
 //		int gameMode = 0;
 //		System.out.println("Please select a game mode \n 1. Single player \n 2. 2-player \n 3. 2-player GUI \n 0. Exit");
