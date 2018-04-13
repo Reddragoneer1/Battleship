@@ -29,11 +29,6 @@ public class TwoPlayer
 	public Player player2 = new Player();
 	private boolean gameLoaded = false;
 
-	/*public void twoPlayerSetup()
-	{
-		gameMode = 3;
-		twoPlayerGameSetup(gameMode);
-	}*/
 	public void setBoardSize()
 	{
 		player1.setBoardLength(board-1);
@@ -307,7 +302,7 @@ public class TwoPlayer
 	 * The method goes through the process of placing player
 	 * ships on the board, and choosing which ship to place.
 	 */
-	public void shipPlacementSelection()	//TODO: Make this for 1 player and call it in Menu, also move it to Game
+	public void shipPlacementSelection()
 	{
 		boolean player1ShipPlacementNotOver = true;
 		boolean player2ShipPlacementNotOver = true;
@@ -449,7 +444,7 @@ public class TwoPlayer
 	 * Such as, moving position, firing weapon, and ending your turn.
 	 * Also displays the coordinates of the selected spot. 
 	 */
-	public void playerTurn()	//TODO: Change player turn so it's per player
+	public void playerTurn()
 	{
 		int player1ShipsSunk = 0;
 		int player2ShipsSunk = 0;
@@ -497,7 +492,6 @@ public class TwoPlayer
 
 							if(player2.shipChecker(player1.getXPos(), player1.getYPos()))
 								player1ShipsSunk++;
-							//playerDoneTurn = true;
 							break;
 						}
 						else
@@ -536,18 +530,17 @@ public class TwoPlayer
 
 							if(player1.shipChecker(player2.getXPos(), player2.getYPos()))
 								player2ShipsSunk++;
-							//playerDoneTurn = true;
 							break;
 						}
 						else
 							System.out.println("You've already hit that spot");
 					}
-				}while(!playerDoneTurn);//while player 2 is not done their turn
+				}while(!playerDoneTurn);	//while player 2 is not done their turn
 				playerDoneTurn = false;
 			}
 			if(player1ShipsSunk == 4 || player2ShipsSunk == 4)
 				winner = true;
-		}while(winner == false);//while there is no winner
+		}while(winner == false);	//while there is no winner
 		System.out.println(player1ShipsSunk == 4 ? player1.getName() : player2.getName() + " has won");//prints winner
 
 	}

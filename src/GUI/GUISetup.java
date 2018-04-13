@@ -33,14 +33,17 @@ public class GUISetup extends Application
 	}	
 	
 	/**
-	 * The method creates buttons, labels, and a scene for the start screen, including the name of the player.
-	 * @param primaryStage An Stage object to be populated with buttons and labels.
+	 * This is the default constructor to override Application
 	 */ 
 	@Override
 	public void start(Stage primaryStage)
 	{
 
 	}
+	/**
+	 * The method is the overload constructor that creates buttons, labels, and a scene for the start screen, including the name of the player.
+	 * @param primaryStage An Stage object to be populated with buttons and labels. gameMode is passed in from LoadGame
+	 */ 
 	public void start(Stage primaryStage, String gameMode)
 	{
 		primaryStage.setTitle("Setup");
@@ -81,18 +84,28 @@ public class GUISetup extends Application
 		Button increaseBoardSize = new Button("+");
 		increaseBoardSize.setMinWidth(50);
 		boardSizeHBox.getChildren().add(2, increaseBoardSize);
-		increaseBoardSize.setOnAction(event -> {
-			i++;
-			boardSizeNum.setText(toString(i));
-		});
+
 		
 		
 		Button decreaseBoardSize = new Button("-");
 		decreaseBoardSize.setMinWidth(50);
 		boardSizeHBox.getChildren().add(3, decreaseBoardSize);
 		
+		increaseBoardSize.setOnAction(event -> {
+			if(i < 16)
+			{
+				i++;
+			}
+			else
+			{
+			 	increaseBoardSize.setStyle("-fx-color: grey");
+			}
+			decreaseBoardSize.setStyle("-fx-color: #DCDCDC");
+			boardSizeNum.setText(toString(i));
+		});
+
 		decreaseBoardSize.setOnAction(event -> {
-			if(i > 7)	//TODO: Implement color fade when 7 or less
+			if(i > 7)
 			{
 				i--;
 			}
@@ -100,6 +113,7 @@ public class GUISetup extends Application
 			{
 				decreaseBoardSize.setStyle("-fx-color: grey");
 			}
+			increaseBoardSize.setStyle("-fx-color: #DCDCDC");
 			boardSizeNum.setText(toString(i));
 		});
 		

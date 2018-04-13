@@ -16,12 +16,19 @@ import javafx.scene.paint.Color;
 public class LoadGame extends Application
 {
 
-	
+	/**
+	* Main meethod that initiates the calling of other methods.
+	* @param args A standard string argument for a main method.
+	*/
 	public static void main(String [] args)
 	{		
 		launch(args);
 	}	
 
+	/**
+	 * The method creates buttons, labels, and a scene for the load option screen, including the game mode.
+	 * @param primaryStage An Stage object to be populated with buttons and labels
+	 */ 
 	@Override
 	public void start(Stage primaryStage)
 	{
@@ -112,6 +119,9 @@ public class LoadGame extends Application
 		primaryStage.show();
 	}
 
+	/**
+	* Method implements the Runnable interface.
+	*/
 	public void run() {
 		launch();
 	}

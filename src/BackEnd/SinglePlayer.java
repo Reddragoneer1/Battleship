@@ -126,12 +126,12 @@ public class SinglePlayer
 		outputStream.println(player.shipsPlaced.size());
 		outputStream.println(computer.shipsPlaced.size());
 
-		for(int i = 0; i < player.shipsPlaced.size(); i++)
+		for(int i = 0; i < player.shipsPlaced.size() - 1; i++)
 		{
 			outputStream.print(player.shipsPlaced.get(i).getName() + " " + player.shipsPlaced.get(i).getXPos() + " " + player.shipsPlaced.get(i).getYPos() + " " + player.shipsPlaced.get(i).getLife());
 		}
 		outputStream.println();
-		for(int i = 0; i < computer.shipsPlaced.size(); i++)
+		for(int i = 0; i < computer.shipsPlaced.size() - 1; i++)
 		{
 			outputStream.print(computer.shipsPlaced.get(i).getName() + " " + computer.shipsPlaced.get(i).getXPos() + " " + computer.shipsPlaced.get(i).getYPos() + " " + computer.shipsPlaced.get(i).getLife());
 		}
@@ -239,7 +239,7 @@ public class SinglePlayer
 		int playerShipSize = inputStream.nextInt();
 		int computerShipSize = inputStream.nextInt();
 
-		for(int i = 0; i < playerShipSize; i++)
+		for(int i = 0; i < playerShipSize - 1; i++)
 		{
 			player.shipsPlaced.get(i).setName(inputStream.next());
 			player.shipsPlaced.get(i).setXPos(inputStream.nextInt());
@@ -247,7 +247,7 @@ public class SinglePlayer
 			player.shipsPlaced.get(i).setLife(inputStream.nextInt());
 
 		}
-		for(int i = 0; i < computerShipSize; i++)
+		for(int i = 0; i < computerShipSize - 1; i++)
 		{
 			computer.shipsPlaced.get(i).setName(inputStream.next());
 			computer.shipsPlaced.get(i).setXPos(inputStream.nextInt());
@@ -285,6 +285,15 @@ public class SinglePlayer
 				
 			}
 		}
+<<<<<<< HEAD:src/BackEnd/SinglePlayer.java
+=======
+		else
+		{
+
+				choosingBoardSize(8);
+				board = 8;
+				setBoardSize();
+>>>>>>> 0a063772e652e2e817a279441f8bbc6f79846620:BackEnd/SinglePlayer.java
 				
 		
 		choosingBoardSize(board);
@@ -387,10 +396,10 @@ public class SinglePlayer
 		}while(playerShipPlacementNotOver);//while player not done turn
 
 		//GOES THROUGH EACH SHIP FOR AI
-			shipPlacer(computer.battleship);
-			shipPlacer(computer.submarine);
-			shipPlacer(computer.destroyer);
-			shipPlacer(computer.patrolBoat);
+		shipPlacer(computer.battleship);
+		shipPlacer(computer.submarine);
+		shipPlacer(computer.destroyer);
+		shipPlacer(computer.patrolBoat);
 
 	}
 
@@ -400,9 +409,10 @@ public class SinglePlayer
 			isValidShipPlacement = true;
 			computer.randomShipPlacement();
 			computer.current = s;
-			if(computer.validShipPlacement(computer.current)) computer.shipPlacement(computer.current);
-			else isValidShipPlacement = false;
-
+			if(computer.validShipPlacement(computer.current)) 
+				computer.shipPlacement(computer.current);
+			else 
+				isValidShipPlacement = false;
 		}while(!isValidShipPlacement);
 	}
 
@@ -490,12 +500,12 @@ public class SinglePlayer
 					if(player.shipChecker(player.getXPos(), player.getYPos()))
 						computerShipsSunk++;
 					playerDoneTurn = true;		
-				}while(!playerDoneTurn);//while player 2 is not done their turn
+				}while(!playerDoneTurn);	//while player 2 is not done their turn
 				playerDoneTurn = false;
 			}
 			if(playerShipsSunk == 4 || computerShipsSunk == 4)
 				winner = true;
-		}while(winner == false);//while there is no winner
+		}while(winner == false);	//while there is no winner
 		System.out.println((playerShipsSunk == 4 ? player.getName() : computer.getName()) + " has won");//prints winner
 	}
 }
