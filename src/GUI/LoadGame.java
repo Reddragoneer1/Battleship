@@ -77,8 +77,9 @@ public class LoadGame extends Application
 						if(gameMode.getValue().equals("SinglePlayer"))
 						{
 							SinglePlayerGUI gui = new SinglePlayerGUI();
-							gui.singlePlayer.load();
+							//gui.singlePlayer.load();
 							try {
+								gui.setLoad(true);
 								gui.start(new Stage());
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -89,6 +90,7 @@ public class LoadGame extends Application
 							TwoPlayerGUI gui = new TwoPlayerGUI();
 							gui.twoPlayer.load();
 							try {
+								//gui.setLoad(true);
 								gui.start(new Stage());
 							} catch (Exception e) {
 								e.printStackTrace();
