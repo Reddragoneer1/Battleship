@@ -347,7 +347,7 @@ public class Player
 	public void shipPlacement(Ship s)
 	{
 		s.setXPos(xPos); //sets x,y cords
-		s.setYPos(yPos);	//TODO: This may be redundant so someone might want to change this
+		s.setYPos(yPos);
 		s.setXPositions(xPos);
 		s.setYPositions(yPos);
 
@@ -453,7 +453,7 @@ public class Player
 	public boolean validShipPlacement(Ship s)
 	{
 		s.setXPos(xPos); 	//sets x,y cords
-		s.setYPos(yPos);	//TODO: This may be redundant so someone might want to change this
+		s.setYPos(yPos);
 		s.setXPositions(xPos);
 		s.setYPositions(yPos);
 

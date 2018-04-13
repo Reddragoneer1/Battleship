@@ -108,12 +108,12 @@ public class SinglePlayer
 		outputStream.println(player.shipsPlaced.size());
 		outputStream.println(computer.shipsPlaced.size());
 
-		for(int i = 0; i < player.shipsPlaced.size(); i++)
+		for(int i = 0; i < player.shipsPlaced.size() - 1; i++)
 		{
 			outputStream.print(player.shipsPlaced.get(i).getName() + " " + player.shipsPlaced.get(i).getXPos() + " " + player.shipsPlaced.get(i).getYPos() + " " + player.shipsPlaced.get(i).getLife());
 		}
 		outputStream.println();
-		for(int i = 0; i < computer.shipsPlaced.size(); i++)
+		for(int i = 0; i < computer.shipsPlaced.size() - 1; i++)
 		{
 			outputStream.print(computer.shipsPlaced.get(i).getName() + " " + computer.shipsPlaced.get(i).getXPos() + " " + computer.shipsPlaced.get(i).getYPos() + " " + computer.shipsPlaced.get(i).getLife());
 		}
@@ -221,13 +221,13 @@ public class SinglePlayer
 		int playerShipSize = inputStream.nextInt();
 		int computerShipSize = inputStream.nextInt();
 
-		for(int i = 0; i < playerShipSize; i++)
+		for(int i = 0; i < playerShipSize - 1; i++)
 		{
 			player.shipsPlaced.get(i).setName(inputStream.next());
 			player.shipsPlaced.get(i).setXPos(inputStream.nextInt());
 			player.shipsPlaced.get(i).setYPos(inputStream.nextInt());
 		}
-		for(int i = 0; i < computerShipSize; i++)
+		for(int i = 0; i < computerShipSize - 1; i++)
 		{
 			computer.shipsPlaced.get(i).setName(inputStream.next());
 			computer.shipsPlaced.get(i).setXPos(inputStream.nextInt());

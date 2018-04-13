@@ -307,7 +307,7 @@ public class TwoPlayer
 	 * The method goes through the process of placing player
 	 * ships on the board, and choosing which ship to place.
 	 */
-	public void shipPlacementSelection()	//TODO: Make this for 1 player and call it in Menu, also move it to Game
+	public void shipPlacementSelection()
 	{
 		boolean player1ShipPlacementNotOver = true;
 		boolean player2ShipPlacementNotOver = true;
@@ -449,7 +449,7 @@ public class TwoPlayer
 	 * Such as, moving position, firing weapon, and ending your turn.
 	 * Also displays the coordinates of the selected spot. 
 	 */
-	public void playerTurn()	//TODO: Change player turn so it's per player
+	public void playerTurn()
 	{
 		int player1ShipsSunk = 0;
 		int player2ShipsSunk = 0;
