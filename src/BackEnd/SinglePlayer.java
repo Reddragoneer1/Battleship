@@ -25,6 +25,24 @@ public class SinglePlayer
 	private boolean playerDoneTurn = false;
 	private boolean gameLoaded = false;
 
+	/**
+	 * Setter for board
+	 * @param b
+	 */
+	public void setBoard(int b)
+	{
+		this.board = b;
+	}
+	
+	/**
+	 * Getter for board
+	 * @return board 
+	 */
+	public int getBoard()
+	{
+		return board;
+	}
+	
 /**
 * Getter for board size
 */
@@ -226,12 +244,16 @@ public class SinglePlayer
 			player.shipsPlaced.get(i).setName(inputStream.next());
 			player.shipsPlaced.get(i).setXPos(inputStream.nextInt());
 			player.shipsPlaced.get(i).setYPos(inputStream.nextInt());
+			player.shipsPlaced.get(i).setLife(inputStream.nextInt());
+
 		}
 		for(int i = 0; i < computerShipSize - 1; i++)
 		{
 			computer.shipsPlaced.get(i).setName(inputStream.next());
 			computer.shipsPlaced.get(i).setXPos(inputStream.nextInt());
 			computer.shipsPlaced.get(i).setYPos(inputStream.nextInt());
+			computer.shipsPlaced.get(i).setLife(inputStream.nextInt());
+
 		}
 
 		gameLoaded = true;
@@ -259,97 +281,56 @@ public class SinglePlayer
 	
 				System.out.println("What size would you like the board?");
 				board = input.nextInt();
-				choosingBoardSize(board);
-				setBoardSize();
-	
-				player.playerBoard.boardPopulate();	//populates boards
-				player.enemyBoard.boardPopulate();
-				computer.playerBoard.boardPopulate();	//populates boards
-				computer.enemyBoard.boardPopulate();
-	
-				//PLAYER SHIPS
-				player.battleship.setName("Battleship");
-				player.battleship.setLength(4);
-				player.battleship.setLife(4);
-	
-				player.submarine.setName("Submarine");
-				player.submarine.setLength(3);
-				player.submarine.setLife(3);
-	
-				player.destroyer.setName("Destroyer");
-				player.destroyer.setLength(3);		
-				player.destroyer.setLife(3);
-	
-				player.patrolBoat.setName("Patrol Boat");
-				player.patrolBoat.setLength(2);
-				player.patrolBoat.setLife(2);
-				
-				//COMPUTER SHIPS
-				computer.battleship.setName("Battleship");
-				computer.battleship.setLength(4);
-				computer.battleship.setLife(4);
-	
-				computer.submarine.setName("Submarine");
-				computer.submarine.setLength(3);
-				computer.submarine.setLife(3);
-	
-				computer.destroyer.setName("Destroyer");
-				computer.destroyer.setLength(3);		
-				computer.destroyer.setLife(3);
-	
-				computer.patrolBoat.setName("Patrol Boat");
-				computer.patrolBoat.setLength(2);
-				computer.patrolBoat.setLife(2);
 			}
 		}
-		else
-		{
-
-				choosingBoardSize(8);
-				board = 8;
-				setBoardSize();
+		
+		choosingBoardSize(board);
+		setBoardSize();
+	
+		player.playerBoard.boardPopulate();	//populates boards
+		player.enemyBoard.boardPopulate();
+		computer.playerBoard.boardPopulate();	//populates boards
+		computer.enemyBoard.boardPopulate();
+	
+		//PLAYER SHIPS
+		player.battleship.setName("Battleship");
+		player.battleship.setLength(4);
+		player.battleship.setLife(4);
+	
+		player.submarine.setName("Submarine");
+		player.submarine.setLength(3);
+		player.submarine.setLife(3);
+	
+		player.destroyer.setName("Destroyer");
+		player.destroyer.setLength(3);		
+		player.destroyer.setLife(3);
+	
+		player.patrolBoat.setName("Patrol Boat");
+		player.patrolBoat.setLength(2);
+		player.patrolBoat.setLife(2);
 				
-				player.playerBoard.boardPopulate();	//populates boards
-				player.enemyBoard.boardPopulate();
-				computer.playerBoard.boardPopulate();	//populates boards
-				computer.enemyBoard.boardPopulate();
+		//COMPUTER SHIPS
+		computer.battleship.setName("Battleship");
+		computer.battleship.setLength(4);
+		computer.battleship.setLife(4);
 	
-				//PLAYER SHIPS
-				player.battleship.setName("Battleship");
-				player.battleship.setLength(4);
-				player.battleship.setLife(4);
+		computer.submarine.setName("Submarine");
+		computer.submarine.setLength(3);
+		computer.submarine.setLife(3);
 	
-				player.submarine.setName("Submarine");
-				player.submarine.setLength(3);
-				player.submarine.setLife(3);
+		computer.destroyer.setName("Destroyer");
+		computer.destroyer.setLength(3);		
+		computer.destroyer.setLife(3);
 	
-				player.destroyer.setName("Destroyer");
-				player.destroyer.setLength(3);		
-				player.destroyer.setLife(3);
-	
-				player.patrolBoat.setName("Patrol Boat");
-				player.patrolBoat.setLength(2);
-				player.patrolBoat.setLife(2);
-				
-				//COMPUTER SHIPS
-				computer.battleship.setName("Battleship");
-				computer.battleship.setLength(4);
-				computer.battleship.setLife(4);
-	
-				computer.submarine.setName("Submarine");
-				computer.submarine.setLength(3);
-				computer.submarine.setLife(3);
-	
-				computer.destroyer.setName("Destroyer");
-				computer.destroyer.setLength(3);		
-				computer.destroyer.setLife(3);
-	
-				computer.patrolBoat.setName("Patrol Boat");
-				computer.patrolBoat.setLength(2);
-				computer.patrolBoat.setLife(2);
-		}
+		computer.patrolBoat.setName("Patrol Boat");
+		computer.patrolBoat.setLength(2);
+		computer.patrolBoat.setLife(2);
 	}
 
+/**
+* Selection screen for player to place ships
+* also places AI's ships
+*/	
 	public void shipPlacementSelection(){
 
 	boolean playerShipPlacementNotOver = true;
@@ -413,6 +394,9 @@ public class SinglePlayer
 
 	}
 
+/**
+* Error checks and places ships (makes sures there is no overlapping)
+*/
 	public void shipPlacer(Ship s){
 		boolean isValidShipPlacement;
 		do{
@@ -426,6 +410,10 @@ public class SinglePlayer
 		}while(!isValidShipPlacement);
 	}
 
+/**
+* Links the player board with the ememy board
+* takes information from the computer's board and fills in the enemy board
+*/
 
 	public void boardLinking()
 	{
