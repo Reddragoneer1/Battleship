@@ -305,7 +305,6 @@ public class SinglePlayer
 		else
 		{
 
-				//player1.setName(JOptionPane.showInputDialog(null, "Please enter your username"));
 				choosingBoardSize(8);
 				board = 8;
 				setBoardSize();
@@ -407,10 +406,10 @@ public class SinglePlayer
 		}while(playerShipPlacementNotOver);//while player not done turn
 
 		//GOES THROUGH EACH SHIP FOR AI
-			shipPlacer(computer.battleship);
-			shipPlacer(computer.submarine);
-			shipPlacer(computer.destroyer);
-			shipPlacer(computer.patrolBoat);
+		shipPlacer(computer.battleship);
+		shipPlacer(computer.submarine);
+		shipPlacer(computer.destroyer);
+		shipPlacer(computer.patrolBoat);
 
 	}
 
@@ -420,9 +419,10 @@ public class SinglePlayer
 			isValidShipPlacement = true;
 			computer.randomShipPlacement();
 			computer.current = s;
-			if(computer.validShipPlacement(computer.current)) computer.shipPlacement(computer.current);
-			else isValidShipPlacement = false;
-
+			if(computer.validShipPlacement(computer.current)) 
+				computer.shipPlacement(computer.current);
+			else 
+				isValidShipPlacement = false;
 		}while(!isValidShipPlacement);
 	}
 
@@ -510,12 +510,12 @@ public class SinglePlayer
 					if(player.shipChecker(player.getXPos(), player.getYPos()))
 						computerShipsSunk++;
 					playerDoneTurn = true;		
-				}while(!playerDoneTurn);//while player 2 is not done their turn
+				}while(!playerDoneTurn);	//while player 2 is not done their turn
 				playerDoneTurn = false;
 			}
 			if(playerShipsSunk == 4 || computerShipsSunk == 4)
 				winner = true;
-		}while(winner == false);//while there is no winner
+		}while(winner == false);	//while there is no winner
 		System.out.println((playerShipsSunk == 4 ? player.getName() : computer.getName()) + " has won");//prints winner
 	}
 }
