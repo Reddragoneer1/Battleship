@@ -22,6 +22,11 @@ public class SinglePlayer
 	private boolean playerDoneTurn = false;
 	private boolean gameLoaded = false;
 
+	public int getBoard() 
+	{
+		return board;
+	}
+	
 	public void setBoard(int b)
 	{
 		board = b;
@@ -61,17 +66,17 @@ public class SinglePlayer
 			System.exit(0);
 		}
 		outputStream.println(board);
-		for(int i = 0; i < player.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < player.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				outputStream.print(player.playerBoard.grid[i][j].getHasShip() + " " + player.playerBoard.grid[i][j].getBeenHit() + " ");
 			}
 			outputStream.println();
 		}
-		for(int i = 0; i < player.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < player.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				outputStream.print(player.enemyBoard.grid[i][j].getHasShip() + " " + player.enemyBoard.grid[i][j].getBeenHit() + " ");
 			}
@@ -79,17 +84,17 @@ public class SinglePlayer
 		}
 
 
-		for(int i = 0; i < computer.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < computer.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				outputStream.print(computer.playerBoard.grid[i][j].getHasShip() + " " + computer.playerBoard.grid[i][j].getBeenHit() + " ");
 			}
 			outputStream.println();
 		}
-		for(int i = 0; i < computer.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < computer.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				outputStream.print(computer.enemyBoard.grid[i][j].getHasShip() + " " + computer.enemyBoard.grid[i][j].getBeenHit() + " ");
 			}
@@ -127,39 +132,39 @@ public class SinglePlayer
 		//Creates all ships for both players
 		player.battleship.setName("Battleship");
 		player.battleship.setLength(4);
-		player.battleship.setLife(4);
+		player.battleship.setLife(4);//Ultimately make it proper life
 
 		player.submarine.setName("Submarine");
 		player.submarine.setLength(3);
-		player.submarine.setLife(3);
+		player.submarine.setLife(3);//Ultimately make it proper life
 
 		player.destroyer.setName("Destroyer");
 		player.destroyer.setLength(3);		
-		player.destroyer.setLife(3);
+		player.destroyer.setLife(3);//Ultimately make it proper life
 
 		player.patrolBoat.setName("Patrol Boat");
 		player.patrolBoat.setLength(2);
-		player.patrolBoat.setLife(2);
+		player.patrolBoat.setLife(2);//Ultimately make it proper life
 
 		computer.battleship.setName("Battleship");
 		computer.battleship.setLength(4);
-		computer.battleship.setLife(4);
+		computer.battleship.setLife(4);//Ultimately make it proper life
 
 		computer.submarine.setName("Submarine");
 		computer.submarine.setLength(3);
-		computer.submarine.setLife(3);
+		computer.submarine.setLife(3);//Ultimately make it proper life
 
 		computer.destroyer.setName("Destroyer");
 		computer.destroyer.setLength(3);
-		computer.destroyer.setLife(3);
+		computer.destroyer.setLife(3);//Ultimately make it proper life
 
 		computer.patrolBoat.setName("Patrol Boat");
 		computer.patrolBoat.setLength(2);
-		computer.patrolBoat.setLife(2);
+		computer.patrolBoat.setLife(2);//Ultimately make it proper life
 
-		for(int i = 0; i < player.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < player.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				player.playerBoard.grid[i][j].setHasShip(inputStream.nextBoolean());
 				player.playerBoard.grid[i][j].setBeenHit(inputStream.nextBoolean());
@@ -167,9 +172,9 @@ public class SinglePlayer
 			inputStream.nextLine();
 
 		}
-		for(int i = 0; i < player.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < player.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				player.enemyBoard.grid[i][j].setHasShip(inputStream.nextBoolean());
 				player.enemyBoard.grid[i][j].setBeenHit(inputStream.nextBoolean());			
@@ -178,17 +183,17 @@ public class SinglePlayer
 		}
 
 
-		for(int i = 0; i < computer.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < computer.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				computer.playerBoard.grid[i][j].setHasShip(inputStream.nextBoolean());
 				computer.playerBoard.grid[i][j].setBeenHit(inputStream.nextBoolean());
 			}
 		}
-		for(int i = 0; i < computer.getBoardLength(); i++)
+		for(int i = 0; i < board; i++)
 		{
-			for(int j = 0; j < computer.getBoardLength(); j++)
+			for(int j = 0; j < board; j++)
 			{
 				computer.enemyBoard.grid[i][j].setHasShip(inputStream.nextBoolean());
 				computer.enemyBoard.grid[i][j].setBeenHit(inputStream.nextBoolean());			

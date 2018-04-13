@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -38,6 +42,8 @@ public class SinglePlayerGUI extends Application
 	private boolean playerShipPlacementNotOver=true;
 	private boolean shotTaken = false;
 	private boolean playerTurn = false;
+	private boolean load = false;
+	private boolean gameLoadedGUI = false;
 	private int computerShipsSunk = 0;
 	private int playerShipsSunk = 0;
 	private int numTurns = 0;
@@ -60,6 +66,7 @@ public class SinglePlayerGUI extends Application
 	Button p1b4;
 	Button p1b5;
 	Button p1b6;
+	Button p1b7;
 	
 	//Win scene
 	Group root2;
@@ -93,21 +100,29 @@ public class SinglePlayerGUI extends Application
 	@Override
 	public void start(Stage primaryStage) throws Exception 
 	{
-		singlePlayer.setBoard(boardUnits);
-		singlePlayer.player.setName(p1Name);
-		singlePlayer.computer.setName(p2Name);
-		
-		singlePlayer.player.setBoardLength(boardUnits-1);
-		singlePlayer.computer.setBoardLength(boardUnits-1);
-		
-		
-		singlePlayer.singlePlayerGame(4);
-		
-		//Creates cell size
-		variableCellSize = (int)(boardSize/boardUnits);
-		
-		primaryStage.setTitle("Battleship");
 		createScene(primaryStage);
+		if(!load)
+		{			
+			singlePlayer.setBoard(boardUnits);
+			singlePlayer.player.setName(p1Name);
+			singlePlayer.computer.setName(p2Name);
+			
+			variableCellSize = (int)(boardSize/boardUnits);
+		
+			singlePlayer.player.setBoardLength(boardUnits-1);
+			singlePlayer.computer.setBoardLength(boardUnits-1);
+			
+			singlePlayer.singlePlayerGame(4);
+			
+			drawBoard();
+		}
+		else if(load)
+		{
+			loadGUI();
+			playerShipPlacementNotOver = false;
+		}
+				
+		primaryStage.setTitle("Battleship");
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -148,6 +163,7 @@ public class SinglePlayerGUI extends Application
 		p1b4 = new Button("Destroyer");
 		p1b5 = new Button("Patrol Boat");
 		p1b6 = new Button("Rotate");
+		p1b7 = new Button("Save");
 						
 		//Sets minimum button width
 		vBox.setPrefWidth(75);
@@ -170,6 +186,8 @@ public class SinglePlayerGUI extends Application
 		p1b5.setLayoutY(wHeight - 5*50);
 		p1b6.setLayoutX((int)(wWidth/2) - (int)(vBox.getPrefWidth()/2));
 		p1b6.setLayoutY(wHeight - 6*50);
+		p1b7.setLayoutX(wWidth - 50);
+
 						
 		//Sets Minimum size for consistency
 		p1b1.setMinWidth(vBox.getPrefWidth());
@@ -177,33 +195,34 @@ public class SinglePlayerGUI extends Application
 		p1b3.setMinWidth(vBox.getPrefWidth());
 		p1b4.setMinWidth(vBox.getPrefWidth());
 		p1b5.setMinWidth(vBox.getPrefWidth());
-		p1b6.setMinWidth(vBox.getPrefWidth());
-					
-		//Draws Boards and grid-lines
-		drawBoard();
+		p1b6.setMinWidth(vBox.getPrefWidth());					
+		
 		root.getChildren().add(canvas);	
 
-		//Adds Buttons
-		root.getChildren().add(p1b2);
-		root.getChildren().add(p1b3);
-		root.getChildren().add(p1b4);
-		root.getChildren().add(p1b5);
-		root.getChildren().add(p1b6);
-		
-		//Scene 1 event handles
-		
+		if (!load)
+		{
+			root.getChildren().add(p1b2);
+			root.getChildren().add(p1b3);
+			root.getChildren().add(p1b4);
+			root.getChildren().add(p1b5);
+			root.getChildren().add(p1b6);
+		}
+			
 		//Handle done button
 		p1b1.setOnAction(e -> handleDoneButton(primaryStage));
-								
+			
 		//Handle Ship Buttons
 		p1b2.setOnAction(e -> handleShipButton(singlePlayer.player.battleship, singlePlayer.player));
 		p1b3.setOnAction(e -> handleShipButton(singlePlayer.player.submarine, singlePlayer.player));
 		p1b4.setOnAction(e -> handleShipButton(singlePlayer.player.destroyer, singlePlayer.player));
 		p1b5.setOnAction(e -> handleShipButton(singlePlayer.player.patrolBoat, singlePlayer.player));
-				
+
 		//Handle rotate button
 		p1b6.setOnAction(e -> handleRotateButton(singlePlayer.player));
-				
+		
+		//Handle save button
+		p1b7.setOnAction(e -> handleSaveButton());
+		
 		//Mouse event handler
 		scene.setOnMouseClicked(e -> handleMouseClick(singlePlayer.player, e, primaryStage));
 		
@@ -229,6 +248,115 @@ public class SinglePlayerGUI extends Application
 		quit.setLayoutY(wHeight - 50);
 		quit.setOnAction(e -> System.exit(0));
 		root2.getChildren().add(quit);
+	}
+	
+	public void loadGUI()
+	{
+		singlePlayer.load();
+		
+		//Sets board size
+		boardUnits = singlePlayer.getBoard();
+		//Sets cell size
+		variableCellSize = (int)(boardSize/boardUnits);
+		
+		drawBoard();
+		
+		String fileName = "output.txt";
+		Scanner inputStream = null;
+
+		try
+		{
+			inputStream = new Scanner(new File(fileName));
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println("Error opening the file " + fileName);
+			return;
+			//System.exit(0);
+		}
+		
+		for (int x = 0; x < boardUnits;	x++)
+		{
+			for(int y = 0; y < boardUnits; y++)
+			{	
+				int xl = x*variableCellSize;
+				int yl = y*variableCellSize+margin+(boardSize-variableCellSize*boardUnits);
+				
+				//If player's own board has ship, and computer hasn't shot there yet
+				if(singlePlayer.player.playerBoard.grid[x][y].getHasShip()&&!singlePlayer.computer.enemyBoard.grid[x][y].getBeenHit())
+				{	
+					gc.setFill(Color.BLACK);
+					gc.fillRect(xl, yl, variableCellSize, variableCellSize);
+				}
+				//If computer's board for player is hit...
+				if(singlePlayer.computer.enemyBoard.grid[x][y].getBeenHit())
+				{				
+					//and has a ship
+					if (singlePlayer.computer.enemyBoard.grid[x][y].getHasShip())
+					{
+						gc.setFill(Color.RED);
+					}
+					//or has no ship
+					else
+					{
+						gc.setFill(Color.GREY);
+					}
+					gc.fillRect(xl, yl, variableCellSize,variableCellSize);
+				}
+				
+				xl = boardSize + margin + (variableCellSize * x) + (boardSize-variableCellSize*boardUnits);
+				yl = (y*variableCellSize+margin+(boardSize-variableCellSize*boardUnits));
+				
+				//If player's enemy board has been hit
+				if (singlePlayer.player.enemyBoard.grid[x][y].getBeenHit())
+				{
+					//And has a ship
+					if (singlePlayer.player.enemyBoard.grid[x][y].getHasShip())
+					{
+						gc.setFill(Color.RED);
+					}
+					//or has no ship
+					else
+					{
+						gc.setFill(Color.BLUE);
+					}
+					gc.fillRect(xl, yl, variableCellSize, variableCellSize);
+				}
+			}
+		}
+		if (singlePlayer.computer.battleship.getLife()<=0)
+		{
+			playerShipsSunk++;
+		}	
+		if (singlePlayer.computer.destroyer.getLife()<=0)
+		{
+			playerShipsSunk++;
+		}		
+		if (singlePlayer.computer.patrolBoat.getLife()<=0)
+		{
+			playerShipsSunk++;
+		}		
+		if (singlePlayer.computer.submarine.getLife()<=0)
+		{
+			playerShipsSunk++;
+		}			
+		if (singlePlayer.player.battleship.getLife()<=0)
+		{
+			computerShipsSunk++;
+		}	
+		if (singlePlayer.player.destroyer.getLife()<=0)
+		{
+			computerShipsSunk++;
+		}		
+		if (singlePlayer.player.patrolBoat.getLife()<=0)
+		{
+			computerShipsSunk++;
+		}		
+		if (singlePlayer.player.submarine.getLife()<=0)
+		{
+			computerShipsSunk++;
+		}				
+		gameLoadedGUI = true;
 	}
 	
 	/**
@@ -289,6 +417,8 @@ public class SinglePlayerGUI extends Application
 			
 			root.getChildren().add(shipsSunkLabel);
 			root.getChildren().add(shipsSunkLabel2);
+			root.getChildren().add(p1b7);		
+
 		}
 		
 		root.getChildren().remove(p1b1);
@@ -309,6 +439,15 @@ public class SinglePlayerGUI extends Application
 		
 		playerTurn = !playerTurn;
 		singlePlayer.boardLinking();
+	}
+	
+	/**
+	 * Saves the game when button pressed
+	 */
+	public void handleSaveButton()
+	{
+		singlePlayer.save();
+		System.out.println("Saved");
 	}
 	
 	/**
@@ -595,6 +734,12 @@ public class SinglePlayerGUI extends Application
 			setWinScene(primaryStage, p2Name);
 		}
 		
+	}
+	
+
+	public void setLoad(boolean bool)
+	{
+		load = bool;
 	}
 	
 }

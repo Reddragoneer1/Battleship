@@ -68,10 +68,6 @@ public class GUISetup extends Application
 		
 		gameModeHBox.setPadding(new Insets(5));
 		
-		
-		
-
-		
 		Label boardSize = new Label("Board Size: ");
 		boardSize.setPadding(new Insets(5));
 		boardSize.setStyle("-fx-font-size: 16px");
@@ -135,11 +131,14 @@ public class GUISetup extends Application
 			String game = gameMode.getValue();
 			if(game.equals("Single player"))
 			{
-				primaryStage.close();
-
+				primaryStage.close();		
+				
 				SinglePlayerGUI gui = new SinglePlayerGUI();
 				try 
 				{
+					
+					gui.setLoad(true);
+					
 					gui.boardUnits = i;
 					gui.p1Name = playerNameInput.getText();
 
