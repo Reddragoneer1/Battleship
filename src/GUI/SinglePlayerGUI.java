@@ -367,7 +367,7 @@ public class SinglePlayerGUI extends Application
 		{
 			computerShipsSunk++;
 		}				
-		gameLoadedGUI = true;
+		//gameLoadedGUI = true;
 	}
 	
 	/**
