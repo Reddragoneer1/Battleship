@@ -19,7 +19,7 @@ import javafx.scene.text.Text;
 public class TwoPlayerGUI extends Application
 {
 	//TwoPlayer class
-	TwoPlayer twoPlayer;
+	TwoPlayer twoPlayer = new TwoPlayer();
 	
 	//CONSTANTS
 	final int shipsRequired = 4;
@@ -93,7 +93,7 @@ public class TwoPlayerGUI extends Application
 		createScenes(primaryStage);
 		
 		//Init two-player
-		twoPlayer = new TwoPlayer();
+		//twoPlayer = new TwoPlayer();
 		twoPlayer.twoPlayerSetup(3);
 		
 		playGame(primaryStage);

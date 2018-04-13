@@ -1,9 +1,8 @@
-package Test;
-import BackEnd.*;
-import GUI.*;
-
 import static org.junit.Assert.*;
 import java.util.ArrayList;
+
+import BackEnd.*;
+import GUI.*;
 
 import org.junit.Test;
 import java.io.*;
@@ -433,7 +432,7 @@ public class SinglePlayerTest
 
 		singlePlayer.save();
 
-		String fileName = "output.txt";
+		String fileName = "singleplayer.txt";
 		Scanner inputStream = null;
 
 		try
@@ -592,7 +591,7 @@ public class SinglePlayerTest
 
 		singlePlayer2.save();
 
-		String fileName = "output.txt";
+		String fileName = "singleplayer.txt";
 		Scanner inputStream = null;
 
 		try
